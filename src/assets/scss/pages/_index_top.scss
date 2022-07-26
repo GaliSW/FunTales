@@ -14,6 +14,7 @@
             height: 320px;
             grid-template-columns: 150px auto auto;
             padding: 8px 22px 20px 0;
+            margin-top: 30px;
         }
     }
      @media(max-width:767px){
@@ -190,21 +191,28 @@
         background-repeat: no-repeat;
         background-size: contain;
         .switch_tab{
-            height: 50px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding-right: 10px;
             span{
+                // border: 1px solid red;
                 font-size: 18px;
+                font-family: 'Noto Serif TC';
+                font-weight: bold;
                 cursor: pointer;
                 padding: 10px 0;
                 width: 100%;
                 text-align: center;
             }
+            .active{
+                color: rgba(78, 66, 61, 0.7);
+            }
         }
         .tab_list{
             width: 280px;
-            padding: 0 20px;
+            padding: 20px 20px 0 20px;
             list-style: none;
             height: calc(100% - 120px);
             overflow: hidden;

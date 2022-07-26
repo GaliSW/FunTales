@@ -5,7 +5,9 @@ header {
     align-items: center;
     height: 50px;
     padding: 0 15px;
-
+    position: fixed;
+    width: 100%;
+    z-index: 3;
     .left {
         display: flex;
         align-items: center;
@@ -132,11 +134,13 @@ header {
         }
 
         .left .subWeb {
+            // z-index: 4;
+            padding-top: 30px;
             position: absolute;
             display: flex;
             flex-direction: column;
             background-color: #333333;
-            height: calc(100% - 50px);
+            height: 100vh;
             width: 154px;
             top: 50px;
             left: -154px;

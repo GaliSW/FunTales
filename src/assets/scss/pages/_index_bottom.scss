@@ -1,16 +1,17 @@
 .index_bottom{
     // display: none;
     .classify{
-        padding: 0 60px;
+        padding: 0 60px 30px 60px;
         .classify_title{
             display: flex;
             border-bottom: 1px solid rgba($color: #fff, $alpha: .3);
             justify-content: space-between;
             align-items: center;
-            >div{
+            >div,a{
                 cursor: default;
                 display: flex;
                 align-items: center;
+                text-decoration: none;
                 h1{
                     font-family: 'Noto Serif TC';
                     font-style: normal;
@@ -27,6 +28,7 @@
                     color: #AAA291;
                 }
             }
+
             .more{
                 font-family: 'Noto Sans TC';
                 font-style: normal;

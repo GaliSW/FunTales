@@ -41,7 +41,7 @@
                     <div class="banner_list">
                         <div class="switch_tab">
                             <span>熱門排行</span>
-                            <span>熱門收藏</span>
+                            <span class="active">熱門收藏</span>
                         </div>
                         <ul class="tab_list">
                             <li>
@@ -92,15 +92,15 @@
             </div>
         </section>
         <section class="index_bottom">
-            <div class="classify">
+            <div class="classify" id="class1">
                 <div class="classify_title">
                     <div>
                         <h1>安徒生童話</h1>
                         <span>Andersen's Fairytales</span>
                     </div>
-                    <div class="more">
+                    <router-link to="/Category" class="more">
                         MORE
-                    </div>
+                    </router-link>
                 </div>
                 <div class="classify_list">
                     <img src="@/assets/images/bookself.png" alt="">
@@ -200,15 +200,15 @@
                     </ul>
                 </div>
             </div>
-            <div class="classify">
+            <div class="classify" id="class2">
                 <div class="classify_title">
                     <div>
                         <h1>格林童話</h1>
                         <span>Grimm's Fairy Tales</span>
                     </div>
-                    <div class="more">
+                    <router-link to="/Category" class="more">
                         MORE
-                    </div>
+                    </router-link>
                 </div>
                 <div class="classify_list">
                     <img src="@/assets/images/bookself.png" alt="">
@@ -308,15 +308,15 @@
                     </ul>
                 </div>
             </div>
-            <div class="classify">
+            <div class="classify" id="class3">
                 <div class="classify_title">
                     <div>
                         <h1>伊索寓言</h1>
                         <span>Aesop's Fables</span>
                     </div>
-                    <div class="more">
+                    <router-link to="/Category" class="more">
                         MORE
-                    </div>
+                    </router-link>
                 </div>
                 <div class="classify_list">
                     <img src="@/assets/images/bookself.png" alt="">
@@ -416,15 +416,15 @@
                     </ul>
                 </div>
             </div>
-            <div class="classify">
+            <div class="classify" id="class4">
                 <div class="classify_title">
                     <div>
                         <h1>世界名著</h1>
                         <span>World Literature</span>
                     </div>
-                    <div class="more">
+                    <router-link to="/Category" class="more">
                         MORE
-                    </div>
+                    </router-link>
                 </div>
                 <div class="classify_list">
                     <img src="@/assets/images/bookself.png" alt="">
@@ -525,6 +525,7 @@
                 </div>
             </div>
         </section>
+
     </section>
 
 </template>

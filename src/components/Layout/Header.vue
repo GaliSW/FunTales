@@ -35,6 +35,17 @@
             <img src="../../assets/images/login.svg" alt="" />
         </div>
     </header>
+    <div class="notification_wrapper_mobile">
+        <div class="notification_mobile animate__animated">
+            <img src="@/assets/images/head_default.svg" alt="">
+            <span v-cloak class="male">Gary</span>
+            <div class="wrapper" v-cloak>
+                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;</p>
+                <p class="first">正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;</p>
+                <p class="second">正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;</p>
+            </div>
+        </div>
+    </div>
 </template>
 <script setup>
 import { computed, onMounted } from "@vue/runtime-core";
