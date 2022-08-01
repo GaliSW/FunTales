@@ -207,3 +207,17 @@
         </div>
     </section>
 </template>
+<script setup>
+import { useHeaderStore } from "@/store/header.js"
+import { onMounted } from "vue";
+
+
+//store
+const header = useHeaderStore();
+
+header.nowPage = 3;
+header.title = "安徒生童話";
+
+
+
+</script>

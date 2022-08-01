@@ -2,27 +2,36 @@
     <div id="bg">
     </div>
     <Header></Header>
-    <main>
-        <Navbar @podcast="podcast"></Navbar>
-        <router-view></router-view>
+    <main :class="{ block: nowPage == 2 }">
+        <Navbar @podcast="podcast" v-if="header.nowPage !== 2"></Navbar>
+        <router-view @podcast="podcast"></router-view>
     </main>
-    <footer>
+    <footer v-if="nowPage !== 2">
         © 2021 Brainstorm Digital Communications Corp. All rights reserved.Privacy Policy
     </footer>
     <Podcast v-if="podcastStatus" @podcast="podcast"></Podcast>
 </template>
 
 <script setup>
-import Header from '@/components/Layout/Header.vue';
-import Navbar from '@/components/Layout/Navbar.vue';
-import Index from '@/components/Pages/Index.vue';
-import Collect from '@/components/Pages/Collect.vue';
-import More from '@/components/Pages/More.vue';
-import Tales from '@/components/Pages/Tales.vue';
-import Podcast from '@/components/Layout/Podcast.vue';
+import Header from '@/components/layout/Header.vue';
+import Navbar from '@/components/layout/Navbar.vue';
+import Index from '@/components/pages/Index.vue';
+import Collect from '@/components/pages/Collect.vue';
+import More from '@/components/pages/More.vue';
+import Tales from '@/components/pages/Tales.vue';
+import Podcast from '@/components/layout/Podcast.vue';
 import { ref } from "vue";
-
+import { useHeaderStore } from "@/store/header.js"
+import { onMounted } from "vue";
+import { computed } from '@vue/reactivity';
+//store
+const header = useHeaderStore();
+//data
 const podcastStatus = ref(false);
+
+const nowPage = computed(() => header.nowPage);
+
+
 
 const podcast = () => {
     podcastStatus.value = !podcastStatus.value;
@@ -37,10 +46,14 @@ const podcast = () => {
 
 
 main {
-    height: 100%;
-    padding-top: 50px;
+    margin-top: 50px;
     display: grid;
     grid-template-columns: 200px auto;
+    min-height: calc(100vh - 40px);
+}
+
+.block {
+    display: block;
 }
 
 @media(max-width:1200px) {

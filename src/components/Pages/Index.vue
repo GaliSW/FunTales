@@ -34,16 +34,16 @@
                         </p>
                     </div>
                     <div class="sound">
-                        <img src="@/assets/images/sound_on.svg" alt="">
+                        <img src="@/assets/images/sound_on.png" alt="">
                     </div>
                 </div>
                 <div class="banner_right">
                     <div class="banner_list">
                         <div class="switch_tab">
-                            <span>熱門排行</span>
-                            <span class="active">熱門收藏</span>
+                            <span :class="{ active: tab == 0 }" @click="tab = 0">熱門排行</span>
+                            <span :class="{ active: tab == 1 }" @click="tab = 1">熱門收藏</span>
                         </div>
-                        <ul class="tab_list">
+                        <ul class="tab_list" id="hot_list" v-if="tab == 0">
                             <li>
                                 <img src="@/assets/images/list_img.svg" alt="">
                                 <div>
@@ -87,6 +87,50 @@
                                 </div>
                             </li>
                         </ul>
+                        <ul class="tab_list" id="fav_list" v-else>
+                            <li>
+                                <img src="@/assets/images/300X400.jpg" alt="">
+                                <div>
+                                    <span>AAAAA</span>
+                                    <span>大大大大大大大大</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="@/assets/images/300X400.jpg" alt="">
+                                <div>
+                                    <span>AAAAA</span>
+                                    <span>大大大大大大大大</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="@/assets/images/300X400.jpg" alt="">
+                                <div>
+                                    <span>AAAAA</span>
+                                    <span>大大大大大大大大</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="@/assets/images/300X400.jpg" alt="">
+                                <div>
+                                    <span>AAAAA</span>
+                                    <span>大大大大大大大大</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="@/assets/images/300X400.jpg" alt="">
+                                <div>
+                                    <span>AAAAA</span>
+                                    <span>大大大大大大大大</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="@/assets/images/300X400.jpg" alt="">
+                                <div>
+                                    <span>AAAAA</span>
+                                    <span>大大大大大大大大</span>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -106,7 +150,7 @@
                     <img src="@/assets/images/bookself.png" alt="">
                     <ul>
                         <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
+                            <img src="@/assets/images/list_img.svg" alt="" @click="goTales">
                             <div class="tool_bar">
                                 <span class="watch">3341次</span>
                                 <span class="favorite">
@@ -195,8 +239,6 @@
                                 <span>湯姆歷險記 第六章 之三</span>
                             </div>
                         </li>
-
-
                     </ul>
                 </div>
             </div>
@@ -524,8 +566,68 @@
                     </ul>
                 </div>
             </div>
+            <div class="classify" id="others">
+                <div class="classify_title">
+                    <div>
+                        <h1>其他</h1>
+                        <span>Others</span>
+                    </div>
+                </div>
+                <div class="classify_list">
+                    <div class="podcast" @click="podcast">
+                        <img src="@/assets/images/podcast_mb.svg" alt="">
+                        <div>
+                            <img src="@/assets/images/podcast_play.svg" alt="">
+                            前往Podcast收聽
+                        </div>
+                    </div>
+                    <div class="radio" @click="radioPlay">
+                        <img class="radio_bg" src="@/assets/images/radio_mb.svg" alt="">
+                        <img class="radio_gif" src="@/assets/images/radio.gif" alt="" v-if="radioStatus">
+                        <div>
+                            <img class="radio_btn" src="@/assets/images/radio_play.svg" alt="" v-if="!radioStatus">
+                            <img class="radio_btn" src="@/assets/images/radio_pause.svg" alt="" v-if="radioStatus">
+                            FUNDAY廣播
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
-
     </section>
-
 </template>
+
+<script setup>
+import { useHeaderStore } from "@/store/header.js"
+import { useRouter, useRoute } from "vue-router";
+import { ref, onMounted } from "vue"
+
+//router
+const router = useRouter();
+
+//store
+const header = useHeaderStore();
+
+// data
+const emit = defineEmits([]);
+const radioStatus = ref(false);
+const tab = ref(0)
+header.nowPage = 1;
+header.title = "";
+
+
+
+// method
+const radioPlay = () => {
+    radioStatus.value = !radioStatus.value;
+}
+
+const podcast = () => {
+    emit("podcast")
+}
+
+const goTales = () => {
+    router.push({
+        name: "Tales",
+    });
+}
+</script>

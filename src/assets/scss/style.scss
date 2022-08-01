@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@300;400;500;700&family=Playball&family=Roboto:wght@300;400;500;700&family=Spectral:wght@400;700&display=swap');
 @import "./base";
 @import "./layout/header";
 @import "./layout/navbar";
 @import "layout/notification";
 @import "layout/podcast";
+@import "layout/share";
 @import "./pages/index_top";
 @import "./pages/index_bottom";
 @import "./pages/collect";
