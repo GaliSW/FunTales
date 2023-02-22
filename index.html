@@ -5,9 +5,34 @@
         <link rel="icon" href="./FD-favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>FunTales</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+        <script
+            src="https://accounts.google.com/gsi/client"
+            async
+            defer
+        ></script>
     </head>
     <body>
         <div id="app"></div>
         <script type="module" src="/src/main.js"></script>
+        <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: "665238693494101",
+                    autoLogAppEvents: true,
+                    xfbml: true,
+                    version: "v12.0",
+                });
+            };
+        </script>
+        <script
+            async
+            defer
+            crossorigin="anonymous"
+            src="https://connect.facebook.net/en_US/sdk.js"
+        ></script>
     </body>
 </html>

@@ -1,0 +1,118 @@
+#modal03 {
+
+    .info form {
+        display: flex;
+        flex-direction: column;
+        width: 330px;
+        margin: 0 auto 15px auto;
+
+        &>input {
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 8px 16px;
+            color: #fff;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        &>p {
+            font-weight: 400;
+            font-size: 14px;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        &>div {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+            color: #fff;
+
+            img{
+                margin-right: 5px;
+            }
+        }
+
+
+    }
+
+    .login_mail {
+        width: 330px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        background-color: #F74768;
+        border: 0.5px solid #000000;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all .3s linear;
+        -webkit-transition: all .3s linear;
+        -moz-transition: all .3s linear;
+        -ms-transition: all .3s linear;
+        -o-transition: all .3s linear;
+
+        &:hover {
+            background: rgba(247, 71, 104,.7);
+        }
+    }
+
+    .login_fb {
+        width: 330px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        background-color: rgb(51, 81, 160);
+        border: 0.5px solid #000000;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        margin-top: 5px;
+        cursor: pointer;
+        transition: all .3s linear;
+        -webkit-transition: all .3s linear;
+        -moz-transition: all .3s linear;
+        -ms-transition: all .3s linear;
+        -o-transition: all .3s linear;
+
+        &:hover {
+            background-color: rgba(51, 81, 160,.5);
+        }
+    }
+
+    #google_login{
+        margin-top: 5px;
+       display: flex;
+       justify-content: center;
+        iframe {
+                >* {
+                    padding: 0;
+                }
+            }
+    }
+
+    .terms {
+        color: #fff;
+        text-align: center;
+        margin-top: 15px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: underline;
+
+        a {
+            text-decoration: underline;
+            color: #fff;
+        }
+    }
+}

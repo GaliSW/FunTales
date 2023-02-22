@@ -33,8 +33,9 @@
                             Lucky though they were, they soon began to think they
                         </p>
                     </div>
-                    <div class="sound">
-                        <img src="@/assets/images/sound_on.png" alt="">
+                    <div class="sound" @click="playAudio">
+                        <img src="@/assets/images/sound_on.svg" alt="" v-if="audio">
+                        <img src="@/assets/images/sound_off.svg" alt="" v-else>
                     </div>
                 </div>
                 <div class="banner_right">
@@ -47,43 +48,41 @@
                             <li>
                                 <img src="@/assets/images/list_img.svg" alt="">
                                 <div>
-                                    <span>The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span>湯姆歷險記 第六章 之三</span>
+                                    <span class="count_view">64,544次</span>
+                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
+                                    <span class="ch">湯姆歷險記 第六章 之三</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/list_img.svg" alt="">
                                 <div>
-                                    <span>The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span>湯姆歷險記 第六章 之三</span>
+                                    <span class="count_view">64,544次</span>
+                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
+                                    <span class="ch">湯姆歷險記 第六章 之三</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/list_img.svg" alt="">
                                 <div>
-                                    <span>The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span>湯姆歷險記 第六章 之三</span>
+                                    <span class="count_view">64,544次</span>
+                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
+                                    <span class="ch">湯姆歷險記 第六章 之三</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/list_img.svg" alt="">
                                 <div>
-                                    <span>The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span>湯姆歷險記 第六章 之三</span>
+                                    <span class="count_view">64,544次</span>
+                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
+                                    <span class="ch">湯姆歷險記 第六章 之三</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/list_img.svg" alt="">
                                 <div>
-                                    <span>The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span>湯姆歷險記 第六章 之三</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/list_img.svg" alt="">
-                                <div>
-                                    <span>The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span>湯姆歷險記 第六章 之三</span>
+                                    <span class="count_view">64,544次</span>
+                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
+                                    <span class="ch">湯姆歷險記 第六章 之三</span>
                                 </div>
                             </li>
                         </ul>
@@ -91,43 +90,49 @@
                             <li>
                                 <img src="@/assets/images/300X400.jpg" alt="">
                                 <div>
-                                    <span>AAAAA</span>
-                                    <span>大大大大大大大大</span>
+                                    <span class="count_fav">64,544次</span>
+                                    <span class="en">AAAAA</span>
+                                    <span class="ch">大大大大大大大大</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/300X400.jpg" alt="">
                                 <div>
-                                    <span>AAAAA</span>
-                                    <span>大大大大大大大大</span>
+                                    <span class="count_fav">64,544次</span>
+                                    <span class="en">AAAAA</span>
+                                    <span class="ch">大大大大大大大大</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/300X400.jpg" alt="">
                                 <div>
-                                    <span>AAAAA</span>
-                                    <span>大大大大大大大大</span>
+                                    <span class="count_fav">64,544次</span>
+                                    <span class="en">AAAAA</span>
+                                    <span class="ch">大大大大大大大大</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/300X400.jpg" alt="">
                                 <div>
-                                    <span>AAAAA</span>
-                                    <span>大大大大大大大大</span>
+                                    <span class="count_fav">64,544次</span>
+                                    <span class="en">AAAAA</span>
+                                    <span class="ch">大大大大大大大大</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/300X400.jpg" alt="">
                                 <div>
-                                    <span>AAAAA</span>
-                                    <span>大大大大大大大大</span>
+                                    <span class="count_fav">64,544次</span>
+                                    <span class="en">AAAAA</span>
+                                    <span class="ch">大大大大大大大大</span>
                                 </div>
                             </li>
                             <li>
                                 <img src="@/assets/images/300X400.jpg" alt="">
                                 <div>
-                                    <span>AAAAA</span>
-                                    <span>大大大大大大大大</span>
+                                    <span class="count_fav">64,544次</span>
+                                    <span class="en">AAAAA</span>
+                                    <span class="ch">大大大大大大大大</span>
                                 </div>
                             </li>
                         </ul>
@@ -594,12 +599,14 @@
             </div>
         </section>
     </section>
+    <Board></Board>
 </template>
 
 <script setup>
 import { useHeaderStore } from "@/store/header.js"
 import { useRouter, useRoute } from "vue-router";
 import { ref, onMounted } from "vue"
+import Board from "@/components/layout/Board.vue"
 
 //router
 const router = useRouter();
@@ -610,7 +617,8 @@ const header = useHeaderStore();
 // data
 const emit = defineEmits([]);
 const radioStatus = ref(false);
-const tab = ref(0)
+const tab = ref(0);
+const audio = ref(false);
 header.nowPage = 1;
 header.title = "";
 
@@ -629,5 +637,9 @@ const goTales = () => {
     router.push({
         name: "Tales",
     });
+}
+
+const playAudio = () => {
+    audio.value = !audio.value;
 }
 </script>

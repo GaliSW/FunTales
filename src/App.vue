@@ -2,6 +2,7 @@
     <div id="bg">
     </div>
     <Header></Header>
+    <Login></Login>
     <main :class="{ block: nowPage == 2 }">
         <Navbar @podcast="podcast" v-if="header.nowPage !== 2"></Navbar>
         <router-view @podcast="podcast"></router-view>
@@ -20,22 +21,34 @@ import Collect from '@/components/pages/Collect.vue';
 import More from '@/components/pages/More.vue';
 import Tales from '@/components/pages/Tales.vue';
 import Podcast from '@/components/layout/Podcast.vue';
+import Login from "./components/LoginModal/Login.vue";
 import { ref } from "vue";
 import { useHeaderStore } from "@/store/header.js"
+import { useUserStore } from "@/store/user.js";
 import { onMounted } from "vue";
 import { computed } from '@vue/reactivity';
 //store
 const header = useHeaderStore();
+const userStore = useUserStore();
 //data
 const podcastStatus = ref(false);
 
 const nowPage = computed(() => header.nowPage);
 
-
-
 const podcast = () => {
     podcastStatus.value = !podcastStatus.value;
 }
+
+onMounted(() => {
+    if (sessionStorage.getItem('mid')) {
+        userStore.mid = sessionStorage.getItem('mid')
+        userStore.cid = sessionStorage.getItem('cid')
+        userStore.userPic = sessionStorage.getItem('pic')
+        userStore.sex = sessionStorage.getItem('sex')
+        userStore.chatUserId = sessionStorage.getItem('chatId')
+        userStore.isLogin = true;
+    }
+})
 
 </script>
 

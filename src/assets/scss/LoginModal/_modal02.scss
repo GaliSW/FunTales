@@ -1,0 +1,110 @@
+#modal02 {
+
+    .info form{
+        display: flex;
+        flex-direction: column;
+        width: 330px;
+        margin: 0 auto 15px auto;
+
+        &>input{
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 8px 16px;
+            color: #fff;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        
+        &>p{
+            font-weight: 400;
+            font-size: 14px;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        &>div{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        &>div>input{
+            width: 230px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 8px 16px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        &>div>div{
+            display: flex;
+            align-items: center;
+        }
+
+        &>div>div>input{
+            display: none;
+        }
+
+        &>div>div>label{
+            font-weight: 400;
+            font-size: 16px;
+            color: #fff;
+            margin-left: 10px;
+            img{
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+    }
+
+    .join_btn{
+        width: 330px;
+        height:40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        background: #F74768;
+        border: 0.5px solid #000000;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all .3s linear;
+        -webkit-transition: all .3s linear;
+        -moz-transition: all .3s linear;
+        -ms-transition: all .3s linear;
+        -o-transition: all .3s linear;
+
+        &:hover{
+            background: rgba(247, 71, 104,.7);
+        }
+    }
+    .fb_join{
+        background: #3351A0;
+        &:hover {
+                background: rgba(51, 81, 160,.7);
+        }
+    }
+    .terms{
+        color: #fff;
+        text-align: center;
+        margin-top: 25px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: default;
+
+        a{
+            text-decoration: underline;
+            color: #fff;
+        }
+    }
+}

@@ -1,0 +1,94 @@
+#modal05 {
+
+    .info form {
+        display: flex;
+        flex-direction: column;
+        width: 330px;
+        margin: 0px auto 35px auto;
+
+        &>input {
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 8px 16px;
+            color: #fff;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        &>p {
+            font-weight: 400;
+            font-size: 14px;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        &>div {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 15px;
+            color: #fff;
+
+            img {
+                margin-right: 5px;
+            }
+        }
+
+
+    }
+
+    .join {
+        width: 330px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        background-color: #F74768;
+        border: 0.5px solid #000000;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all .3s linear;
+        -webkit-transition: all .3s linear;
+        -moz-transition: all .3s linear;
+        -ms-transition: all .3s linear;
+        -o-transition: all .3s linear;
+
+        &:hover {
+            background: rgba(247, 71, 104,.7);
+        }
+    }
+
+    .update {
+        width: 330px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        background-color: #797979;
+        border: 0.5px solid #000000;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: all .3s linear;
+        -webkit-transition: all .3s linear;
+        -moz-transition: all .3s linear;
+        -ms-transition: all .3s linear;
+        -o-transition: all .3s linear;
+
+        &:hover {
+            background:rgba(121, 121, 121,.7) ;
+        }
+    }
+
+
+}

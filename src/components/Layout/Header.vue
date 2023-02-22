@@ -3,8 +3,7 @@
         <div class="modal-1" v-if="modal == 1">
             <div class="left">
                 <router-link :to="'/'" id="logo">
-                    <span class="img rotateX" id="logoImg"><img src="../../assets/images/logo.png"
-                            alt="FUNDAY" /></span>
+                    <span class="img rotateX" id="logoImg"><img src="../../assets/images/logo.png" alt="FUNDAY" /></span>
                     <span class="logo_text rotateX none" id="logoText">
                         <div>童話學英文</div>
                     </span>
@@ -18,9 +17,8 @@
                 </div>
                 <div class="subWeb">
                     <a href="https://music.funday.asia" target="_blank">FunMusic</a>
-                    <a href="https://map.funday.asia" target="_blank">FunMap</a>
                     <a href="https://tube.funday.asia" target="_blank">FunTube</a>
-                    <a href="https://tube.funday.asia" target="_blank">FunDic</a>
+                    <a href="https://tube.funday.asia" target="_blank">FunDictionary</a>
                     <a href="https://funday.asia" target="_blank">FunDay</a>
                 </div>
             </div>
@@ -30,29 +28,27 @@
                     <span>我的收藏</span>
                 </router-link>
 
-                <div class="right_pc_login">
+                <div class="right_pc_login" @click="login()" v-if="!status">
                     <span>免費加入</span> <img src="../../assets/images/join.svg" alt="" />
                 </div>
                 <div class="right_mb">
                     <img src="../../assets/images/login.svg" alt="" />
                 </div>
-                <!-- <div class="right_pc_logout">
+                <div class="right_pc_logout" v-if="status" @click="logout()">
                     <img src="../../assets/images/logout.svg" alt="" />
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="modal-2" v-if="modal == 2">
             <div class="left">
                 <router-link :to="'/'" id="logo">
-                    <span class="img rotateX" id="logoImg"><img src="../../assets/images/logo.png"
-                            alt="FUNDAY" /></span>
+                    <span class="img rotateX" id="logoImg"><img src="../../assets/images/logo.png" alt="FUNDAY" /></span>
                     <span class="logo_text rotateX none" id="logoText">
                         <div>童話學英文</div>
                     </span>
                 </router-link>
                 <div class="subWeb">
                     <a href="https://music.funday.asia" target="_blank">FunMusic</a>
-                    <a href="https://map.funday.asia" target="_blank">FunMap</a>
                     <a href="https://tube.funday.asia" target="_blank">FunTube</a>
                     <a href="https://tube.funday.asia" target="_blank">FunDic</a>
                     <a href="https://funday.asia" target="_blank">FunDay</a>
@@ -71,22 +67,20 @@
                     <img src="../../assets/images/login.svg" alt="" />
                 </div>
                 <!-- <div class="right_pc_logout">
-                    <img src="../../assets/images/logout.svg" alt="" />
-                </div> -->
+                                                                                                <img src="../../assets/images/logout.svg" alt="" />
+                                                                                            </div> -->
             </div>
         </div>
         <div class="modal-3" v-if="modal == 3">
             <div class="left">
                 <router-link :to="'/'" id="logo">
-                    <span class="img rotateX" id="logoImg"><img src="../../assets/images/logo.png"
-                            alt="FUNDAY" /></span>
+                    <span class="img rotateX" id="logoImg"><img src="../../assets/images/logo.png" alt="FUNDAY" /></span>
                     <span class="logo_text rotateX none" id="logoText">
                         <div>童話學英文</div>
                     </span>
                 </router-link>
                 <div class="subWeb">
                     <a href="https://music.funday.asia" target="_blank">FunMusic</a>
-                    <a href="https://map.funday.asia" target="_blank">FunMap</a>
                     <a href="https://tube.funday.asia" target="_blank">FunTube</a>
                     <a href="https://tube.funday.asia" target="_blank">FunDic</a>
                     <a href="https://funday.asia" target="_blank">FunDay</a>
@@ -105,8 +99,8 @@
                     <img src="../../assets/images/login.svg" alt="" />
                 </div>
                 <!-- <div class="right_pc_logout">
-                    <img src="../../assets/images/logout.svg" alt="" />
-                </div> -->
+                                                                                                <img src="../../assets/images/logout.svg" alt="" />
+                                                                                            </div> -->
             </div>
             <div class="back" @click="back">
                 <img src="@/assets/images/return.svg" alt="">
@@ -128,20 +122,26 @@
 </template>
 
 <script setup>
+
 import { computed, onMounted } from "@vue/runtime-core";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import { useHeaderStore } from "@/store/header.js";
-import { toRefs } from "vue";
+import { loginStore } from "@/store/login";
+import { useUserStore } from "@/store/user";
+
+
 
 //store
 const header = useHeaderStore();
+const loginStatus = loginStore();
+const user = useUserStore();
 
 //router
 const router = useRouter();
 
 //data
 const modal = computed(() => header.nowPage);
-
+const status = computed(() => user.isLogin);
 
 onMounted(() => {
     const logoImg = document.getElementById("logoImg");
@@ -160,9 +160,6 @@ onMounted(() => {
 const back = () => {
     history.back();
 }
-
-
-
 const login = () => {
     loginStatus.$patch({
         status: true,

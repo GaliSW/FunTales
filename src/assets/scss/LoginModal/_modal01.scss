@@ -1,0 +1,83 @@
+#modal01{
+    .close_btn{
+        display: flex;
+        justify-content: flex-end;
+        padding:0 20px;
+        span{
+            cursor: pointer;
+        }
+    }
+
+    .title{
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        font-weight: 600;
+        font-size: 26px;
+        color: #FFFFFF;
+        cursor: default;
+        img{
+            height: 28px;
+        }
+    }
+
+    .sub_title{
+        text-align: center;
+        font-weight: 500;
+        font-size: 18px;   
+        color: #FFFFFF;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    .choose_blk{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .mail_login{
+            position: relative;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 400;
+            color: #fff;
+            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 16px 50px;
+            width: 307px;
+            height: 56px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            img{
+                position: absolute;
+                left: 18px;
+                top: 50%;
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+                -moz-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                -o-transform: translateY(-50%);
+            }
+        }
+        #google_signup{
+            iframe{
+               >*{
+                padding: 0;
+               }
+            }
+        }
+    }
+
+    .is_member{
+        margin-top: 20px;
+        p{
+            color: #fff;
+            text-align: center;
+            text-decoration:underline;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+    }
+}
