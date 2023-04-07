@@ -3,6 +3,7 @@ import { useUserStore } from "./user";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { router } from "../router/router";
+import { useCommonStore } from "@/store/common.js";
 
 export const loginStore = defineStore({
     id: "login",
@@ -199,6 +200,7 @@ export const loginStore = defineStore({
 
         //* === Mail Login ===
         async mailLoginCheck() {
+            const commonStore = useCommonStore();
             const user = useUserStore();
             const account = document.getElementById("account").value;
             const pass = document.getElementById("password").value;
@@ -222,6 +224,8 @@ export const loginStore = defineStore({
                         sessionStorage.setItem("sex", res.data.Content.Sex);
                         localStorage.setItem("fdtk", res.data.Content.Token);
                         this.joinGroup(res.data.Content.Mindx);
+                        commonStore.fnCheckinRecord(res.data.Content.Mindx);
+                        commonStore.checkinPop = true;
                     } else {
                         alert("帳號或密碼錯誤");
                     }
@@ -230,10 +234,6 @@ export const loginStore = defineStore({
 
         //* === LogOut ===
         logout() {
-            // const user = useUserStore();
-            // user.mid = "";
-            // user.cid = "";
-            // user.isLogin = false;
             sessionStorage.clear();
             localStorage.removeItem("fdtk");
             location.reload();
@@ -284,6 +284,7 @@ export const loginStore = defineStore({
         fbLoginCheck() {
             const vm = this;
             const user = useUserStore();
+            const commonStore = useCommonStore();
             const id = sessionStorage.getItem("id");
             if (id == null) {
                 alert("此Facebook帳號尚未註冊");
@@ -320,6 +321,8 @@ export const loginStore = defineStore({
                             );
                             user.isLogin = true;
                             user.token = res.data.Content.Token;
+                            commonStore.fnCheckinRecord(res.data.Content.Mindx);
+                            commonStore.checkinPop = true;
                         } else {
                             alert("此Facebook帳號尚未註冊");
                             vm.$patch({
@@ -402,6 +405,7 @@ export const loginStore = defineStore({
         async handleCredentialResponse(response) {
             const vm = this;
             const user = useUserStore();
+            const commonStore = useCommonStore();
             const token = response.credential;
             var base64Url = token.split(".")[1];
             var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -459,6 +463,10 @@ export const loginStore = defineStore({
                                     );
                                     user.isLogin = true;
                                     user.token = res.data.Content.Token;
+                                    commonStore.fnCheckinRecord(
+                                        res.data.Content.Mindx
+                                    );
+                                    commonStore.checkinPop = true;
                                 } else {
                                     alert("此Google帳號尚未註冊");
                                     vm.$patch({
@@ -544,12 +552,17 @@ export const loginStore = defineStore({
                 userId: mid,
             });
             axios
-                .post("http://192.168.11.42:9856/api/Chats/JoinGroup", json, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
+                .post(
+                    "https://storyapi.funday.asia/api/Chats/JoinGroup",
+                    json,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
                 .then((res) => {
+                    console.log(res);
                     const user = useUserStore();
                     user.chatUserId = res.data.result.id;
                     sessionStorage.setItem("chatId", res.data.result.id);

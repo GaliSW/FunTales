@@ -1,16 +1,17 @@
 <template>
-    <div id="bg">
-    </div>
+    <!-- <div id="bg">
+    </div> -->
     <Header></Header>
     <Login></Login>
     <main :class="{ block: nowPage == 2 }">
         <Navbar @podcast="podcast" v-if="header.nowPage !== 2"></Navbar>
-        <router-view @podcast="podcast"></router-view>
+        <router-view :key="$route.fullPath"></router-view>
     </main>
     <footer v-if="nowPage !== 2">
         © 2021 Brainstorm Digital Communications Corp. All rights reserved.Privacy Policy
     </footer>
     <Podcast v-if="podcastStatus" @podcast="podcast"></Podcast>
+    <Checkin v-if="commonStore.checkinPop"></Checkin>
 </template>
 
 <script setup>
@@ -21,15 +22,19 @@ import Collect from '@/components/pages/Collect.vue';
 import More from '@/components/pages/More.vue';
 import Tales from '@/components/pages/Tales.vue';
 import Podcast from '@/components/layout/Podcast.vue';
+import Checkin from '@/components/layout/Checkin.vue';
 import Login from "./components/LoginModal/Login.vue";
 import { ref } from "vue";
 import { useHeaderStore } from "@/store/header.js"
 import { useUserStore } from "@/store/user.js";
+import { useCommonStore } from "@/store/common.js"
 import { onMounted } from "vue";
 import { computed } from '@vue/reactivity';
 //store
 const header = useHeaderStore();
 const userStore = useUserStore();
+const user = useUserStore();
+const commonStore = useCommonStore();
 //data
 const podcastStatus = ref(false);
 
@@ -40,6 +45,7 @@ const podcast = () => {
 }
 
 onMounted(() => {
+    commonStore.checkinPop = true;
     if (sessionStorage.getItem('mid')) {
         userStore.mid = sessionStorage.getItem('mid')
         userStore.cid = sessionStorage.getItem('cid')

@@ -1,5 +1,5 @@
 .index_bottom{
-    // display: none;
+    padding-bottom: 30px;
     .classify{
         padding: 0 60px 30px 60px;
         .classify_title{
@@ -60,6 +60,7 @@
         .classify_list{
             margin-top: 28px;
             position: relative;
+            min-height: 340px;
             >img{
                 position: absolute;
                 top: 215px;
@@ -99,11 +100,21 @@
                             margin-right:4px;  
                         }
                         .favorite{
+                            display: flex;
+                            align-items: center;
                             cursor: pointer;
+                            div{
+                                 width: 13px ;
+                                 height: 11px;
+                                 background-image: url(@/assets/images/heart_on.svg);
+                            }
+                            .off{
+                                background-image: url(@/assets/images/heart_off.svg);
+                            }
                         }
                     }
                     .book_name{
-                        margin-top: 20px;
+                        // margin-top: 20px;
                         font-family: 'Noto Sans TC';
                         font-style: normal;
                         font-weight: 400;
@@ -155,7 +166,7 @@
     @media(max-width:1200px){
         .classify{
             padding: 0 24px;
-            margin-bottom: 50px;
+            margin-bottom: 24px;
             .classify_title{
                 >div{
                     h1{
@@ -171,6 +182,7 @@
             }
             .classify_list{
                 margin-top: 16px;
+                min-height: 210px;
                 >img{
                     position: absolute;
                     top: 120px;
@@ -193,7 +205,7 @@
                             margin: 0;
                         }
                         .book_name{
-                            margin-top: 10px;
+                            // margin-top: 10px;
                             font-size: 12px;
                         }
                     }
@@ -202,6 +214,7 @@
         }
         #others{
             display: block;
+            padding-bottom: 48px;
 
             .classify_list{
                 display:flex;
@@ -306,7 +319,7 @@
                             margin: 0;
                         }
                         .book_name{
-                            margin-top: 10px;
+                            // margin-top: 10px;
                             font-size: 12px;
                         }
                     }
@@ -314,7 +327,7 @@
             }
         }
         #others{
-            padding: 0 20px;
+            padding: 0 20px 24px 20px;
         }
     }
 

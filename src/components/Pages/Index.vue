@@ -3,40 +3,26 @@
         <section class="index_top">
             <div class="banner">
                 <div class="banner_left">
-                    <div class="flag">安徒生童話</div>
-                    <img src="@/assets/images/300X400.jpg" alt="">
+                    <div class="flag">{{ commonStore.banner.Category }}</div>
+                    <div v-show="skeleton" class="skeleton"></div>
+                    <img :src="commonStore.banner.Pic" alt="" class="thumbnail" v-show="!skeleton"
+                        @click="goTales(commonStore.banner.Id)">
                 </div>
                 <div class="banner_center">
-                    <h1>The Goose That Laid the Golden Eggs</h1>
+                    <h1>{{ commonStore.banner.Title }}</h1>
                     <div class="banner_para">
-                        <p>
-                            A man and his wife had the good fortune to possess a goose which laid a golden egg every
-                            day.
-                            Lucky though they were, they soon began to think they were not getting rich fast enough,and,
-                            imagining the bird must be made of gold inside,they decided to kill it in order to secure
-                            the
-                            whole store of precious
-                        </p>
-                        <p>
-                            A man and his wife had the good fortune to possess a goose which laid a golden egg every
-                            day.
-                            Lucky though they were, they soon began to think they
-                        </p>
-                        <p>
-                            A man and his wife had the good fortune to possess a goose which laid a golden egg every
-                            day.
-                            Lucky though they were, they soon began to think they
-                        </p>
-                        <p>
-                            A man and his wife had the good fortune to possess a goose which laid a golden egg every
-                            day.
-                            Lucky though they were, they soon began to think they
-                        </p>
+                        <div v-for="(item, index) in commonStore.banner.data" :data-start="item.clock"
+                            :class="{ active: nowParaClass === item.clock }">
+                            <span v-for="(el, i) in item.Econtent.split(' ')">
+                                {{ el.replace("“", "''").replace("”", "''") }}&nbsp;</span>
+                        </div>
                     </div>
+                    <div></div>
                     <div class="sound" @click="playAudio">
-                        <img src="@/assets/images/sound_on.svg" alt="" v-if="audio">
-                        <img src="@/assets/images/sound_off.svg" alt="" v-else>
+                        <i class="fa-solid fa-circle-pause" v-if="audio"></i>
+                        <i class="fa-solid fa-circle-play" v-else></i>
                     </div>
+                    <audio :src="commonStore.banner.Video" id="audioFile"></audio>
                 </div>
                 <div class="banner_right">
                     <div class="banner_list">
@@ -45,94 +31,22 @@
                             <span :class="{ active: tab == 1 }" @click="tab = 1">熱門收藏</span>
                         </div>
                         <ul class="tab_list" id="hot_list" v-if="tab == 0">
-                            <li>
-                                <img src="@/assets/images/list_img.svg" alt="">
+                            <li v-for="(item, index) in commonStore.hotClick" @click="goTales(item.Id, 24)">
+                                <img :src="item.Pic" alt="">
                                 <div>
-                                    <span class="count_view">64,544次</span>
-                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span class="ch">湯姆歷險記 第六章 之三</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/list_img.svg" alt="">
-                                <div>
-                                    <span class="count_view">64,544次</span>
-                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span class="ch">湯姆歷險記 第六章 之三</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/list_img.svg" alt="">
-                                <div>
-                                    <span class="count_view">64,544次</span>
-                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span class="ch">湯姆歷險記 第六章 之三</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/list_img.svg" alt="">
-                                <div>
-                                    <span class="count_view">64,544次</span>
-                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span class="ch">湯姆歷險記 第六章 之三</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/list_img.svg" alt="">
-                                <div>
-                                    <span class="count_view">64,544次</span>
-                                    <span class="en">The Adventures of Tom Sawyer Chap6-3</span>
-                                    <span class="ch">湯姆歷險記 第六章 之三</span>
+                                    <span class="count_view">{{ item.Clicks }}次</span>
+                                    <span class="en">{{ item.eTitle }}</span>
+                                    <span class="ch">{{ item.cTitle }}</span>
                                 </div>
                             </li>
                         </ul>
                         <ul class="tab_list" id="fav_list" v-else>
-                            <li>
-                                <img src="@/assets/images/300X400.jpg" alt="">
+                            <li v-for="(item, index) in commonStore.hotBook" @click="goTales(item.Id, 24)">
+                                <img :src="item.Pic" alt="">
                                 <div>
-                                    <span class="count_fav">64,544次</span>
-                                    <span class="en">AAAAA</span>
-                                    <span class="ch">大大大大大大大大</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/300X400.jpg" alt="">
-                                <div>
-                                    <span class="count_fav">64,544次</span>
-                                    <span class="en">AAAAA</span>
-                                    <span class="ch">大大大大大大大大</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/300X400.jpg" alt="">
-                                <div>
-                                    <span class="count_fav">64,544次</span>
-                                    <span class="en">AAAAA</span>
-                                    <span class="ch">大大大大大大大大</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/300X400.jpg" alt="">
-                                <div>
-                                    <span class="count_fav">64,544次</span>
-                                    <span class="en">AAAAA</span>
-                                    <span class="ch">大大大大大大大大</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/300X400.jpg" alt="">
-                                <div>
-                                    <span class="count_fav">64,544次</span>
-                                    <span class="en">AAAAA</span>
-                                    <span class="ch">大大大大大大大大</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/images/300X400.jpg" alt="">
-                                <div>
-                                    <span class="count_fav">64,544次</span>
-                                    <span class="en">AAAAA</span>
-                                    <span class="ch">大大大大大大大大</span>
+                                    <span class="count_view">{{ item.Clicks }}次</span>
+                                    <span class="en">{{ item.eTitle }}</span>
+                                    <span class="ch">{{ item.cTitle }}</span>
                                 </div>
                             </li>
                         </ul>
@@ -141,107 +55,63 @@
             </div>
         </section>
         <section class="index_bottom">
+            <div class="classify" id="class3">
+                <div class="classify_title">
+                    <div>
+                        <h1>伊索寓言</h1>
+                        <span>Aesop's Fables</span>
+                    </div>
+                    <div class="more" @click="toCategory(10)">
+                        MORE
+                    </div>
+                </div>
+                <div class="classify_list">
+                    <img src="@/assets/images/bookself.png" alt="">
+                    <ul>
+                        <li v-for="(item, index) in commonStore.cateAesop">
+                            <img :src="item.Pic" alt="" @click="goTales(item.Id, 10)">
+                            <div class="tool_bar">
+                                <span class="watch">{{ item.Clicks }}次</span>
+                                <span class="favorite">
+                                    <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
+                                </span>
+                            </div>
+                            <div class="book_name">
+                                <span>
+                                    {{ item.eTitle }}
+                                </span>
+                                <span>{{ item.cTitle }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div class="classify" id="class1">
                 <div class="classify_title">
                     <div>
                         <h1>安徒生童話</h1>
                         <span>Andersen's Fairytales</span>
                     </div>
-                    <router-link to="/Category" class="more">
+                    <div class="more" @click="toCategory(13)">
                         MORE
-                    </router-link>
+                    </div>
                 </div>
                 <div class="classify_list">
                     <img src="@/assets/images/bookself.png" alt="">
                     <ul>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="" @click="goTales">
+                        <li v-for="(item, index) in commonStore.cateAndersen">
+                            <img :src="item.Pic" alt="" @click="goTales(item.Id, 13)">
                             <div class="tool_bar">
-                                <span class="watch">3341次</span>
+                                <span class="watch">{{ item.Clicks }}次</span>
                                 <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
+                                    <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                                 </span>
                             </div>
                             <div class="book_name">
                                 <span>
-                                    The Adventures of Tom Sawyer Chap6-3
+                                    {{ item.eTitle }}
                                 </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
+                                <span>{{ item.cTitle }}</span>
                             </div>
                         </li>
                     </ul>
@@ -251,215 +121,30 @@
                 <div class="classify_title">
                     <div>
                         <h1>格林童話</h1>
-                        <span>Grimm's Fairy Tales</span>
+                        <span>Grimm's Fairytales</span>
                     </div>
-                    <router-link to="/Category" class="more">
+                    <div class="more" @click="toCategory(9)">
                         MORE
-                    </router-link>
+                    </div>
                 </div>
                 <div class="classify_list">
                     <img src="@/assets/images/bookself.png" alt="">
                     <ul>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
+                        <li v-for="(item, index) in commonStore.cateGrimm">
+                            <img :src="item.Pic" alt="" @click="goTales(item.Id, 9)">
                             <div class="tool_bar">
-                                <span class="watch">3341次</span>
+                                <span class="watch">{{ item.Clicks }}次</span>
                                 <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
+                                    <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                                 </span>
                             </div>
                             <div class="book_name">
                                 <span>
-                                    The Adventures of Tom Sawyer Chap6-3
+                                    {{ item.eTitle }}
                                 </span>
-                                <span>湯姆歷險記 第六章 之三</span>
+                                <span>{{ item.cTitle }}</span>
                             </div>
                         </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-            <div class="classify" id="class3">
-                <div class="classify_title">
-                    <div>
-                        <h1>伊索寓言</h1>
-                        <span>Aesop's Fables</span>
-                    </div>
-                    <router-link to="/Category" class="more">
-                        MORE
-                    </router-link>
-                </div>
-                <div class="classify_list">
-                    <img src="@/assets/images/bookself.png" alt="">
-                    <ul>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-
-
                     </ul>
                 </div>
             </div>
@@ -469,105 +154,28 @@
                         <h1>世界名著</h1>
                         <span>World Literature</span>
                     </div>
-                    <router-link to="/Category" class="more">
+                    <div class="more" @click="toCategory(24)">
                         MORE
-                    </router-link>
+                    </div>
                 </div>
                 <div class="classify_list">
                     <img src="@/assets/images/bookself.png" alt="">
                     <ul>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
+                        <li v-for="(item, index) in commonStore.cateWorld">
+                            <img :src="item.Pic" alt="" @click="goTales(item.Id, 24)">
                             <div class="tool_bar">
-                                <span class="watch">3341次</span>
+                                <span class="watch">{{ item.Clicks }}次</span>
                                 <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
+                                    <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                                 </span>
                             </div>
                             <div class="book_name">
                                 <span>
-                                    The Adventures of Tom Sawyer Chap6-3
+                                    {{ item.eTitle }}
                                 </span>
-                                <span>湯姆歷險記 第六章 之三</span>
+                                <span>{{ item.cTitle }}</span>
                             </div>
                         </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="@/assets/images/list_img.svg" alt="">
-                            <div class="tool_bar">
-                                <span class="watch">3341次</span>
-                                <span class="favorite">
-                                    <img src="@/assets/images/heart_off.svg" alt="">
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    The Adventures of Tom Sawyer Chap6-3
-                                </span>
-                                <span>湯姆歷險記 第六章 之三</span>
-                            </div>
-                        </li>
-
-
                     </ul>
                 </div>
             </div>
@@ -604,6 +212,7 @@
 
 <script setup>
 import { useHeaderStore } from "@/store/header.js"
+import { useCommonStore } from "@/store/common.js"
 import { useRouter, useRoute } from "vue-router";
 import { ref, onMounted } from "vue"
 import Board from "@/components/layout/Board.vue"
@@ -613,15 +222,33 @@ const router = useRouter();
 
 //store
 const header = useHeaderStore();
+const commonStore = useCommonStore();
 
 // data
 const emit = defineEmits([]);
 const radioStatus = ref(false);
 const tab = ref(0);
 const audio = ref(false);
-header.nowPage = 1;
-header.title = "";
+const interval = ref("");
+const nowParaClass = ref(0);
+const skeleton = ref(true);
 
+
+
+
+onMounted(() => {
+    commonStore.getIndexData();
+    header.nowPage = 1;
+    header.title = "";
+    const classImg = document.querySelectorAll(".thumbnail");
+    classImg.forEach((item) => {
+        item.addEventListener("load", () => {
+            setTimeout(() => {
+                skeleton.value = false;
+            }, 500)
+        })
+    })
+})
 
 
 // method
@@ -633,13 +260,58 @@ const podcast = () => {
     emit("podcast")
 }
 
-const goTales = () => {
+const goTales = (id, cateId) => {
     router.push({
         name: "Tales",
+        query: {
+            id: id,
+            category: cateId
+        },
     });
 }
 
 const playAudio = () => {
+    const audioEl = document.getElementById("audioFile");
+    if (audio.value) {
+        audioEl.pause();
+        clearInterval(interval.value)
+    } else {
+        var eles = document.querySelectorAll("[data-start]");
+        var arr = Array.prototype.slice.call(eles);
+        audioEl.play();
+        interval.value = setInterval(() => {
+            const nowTime = audioEl.currentTime.toFixed(0);
+            const nowPara = arr.find(x => x.getAttribute("data-start") == nowTime);
+            if (nowPara) {
+                nowParaClass.value = nowPara.getAttribute("data-start");
+                document.querySelector(".banner_para").scrollTo({
+                    top: nowPara.offsetTop - 150,
+                    behavior: "smooth"
+                })
+            }
+        }, 1000)
+    }
     audio.value = !audio.value;
 }
+
+const toCategory = (id) => {
+    router.push({
+        name: "Category",
+        query: {
+            id: id,
+        },
+    });
+}
+
+const like = async (id, e) => {
+    const el = e.target;
+    await commonStore.fnLike(id).then(() => {
+        if (el.classList.contains("off")) {
+            el.classList.remove("off");
+        } else {
+            el.classList.add("off");
+        }
+    });
+}
+
 </script>

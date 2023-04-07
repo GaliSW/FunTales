@@ -1,8 +1,9 @@
 .tales_top_pc{
     width: 100%;
     height: 900px;
+    padding-top: 20px;
     .tales_book{
-        margin: 20px auto;
+        margin: 0 auto;
         background-image: url(@/assets/images/book-bg.png);
         height: 750px;
         width: 1500px;
@@ -11,15 +12,16 @@
         background-position: center;
         display: flex;
         align-items: center;
-        padding: 0 70px 0 190px;
+        padding:0 70px 24px 230px;
         filter: drop-shadow(0px 20px 10px rgba(0, 0, 0, 0.75));
         -webkit-filter: drop-shadow(0px 20px 10px rgba(0, 0, 0, 0.75));
-        .tales_img img{
-            width: 450px;
-            border: 10px solid rgba(0, 0, 0, 0.8);
+        .tales_img{
+            img{
+                width: 400px;
+               border: 10px solid rgba(0, 0, 0, 0.8);
+           }
         }
         .tales_content{
-            // border: 1px solid red;
             height: 100%;
             margin-left: 140px;
             .classify{
@@ -64,7 +66,7 @@
                 padding: 0 10px;
                 height: calc(100% - 270px);
                 overflow-y: scroll;
-                font-family: 'Spectral';
+                font-family: 'Noto Serif TC';
                 font-style: normal;
                 font-weight: 400;
                 font-size: 20px;
@@ -73,6 +75,25 @@
                 color: #222222;
                 div{
                     margin-bottom: 20px;
+                    display: flex;
+                    width: 100%;
+                    flex-wrap: wrap;
+                    color: rgb(44, 36, 36, .5);
+                    span{
+                        cursor: pointer;
+                        letter-spacing: 2px;
+                        &:hover{
+                            color: #b64646;
+                        }
+                    }
+                    .select{
+                        color: #222222;
+                        font-weight: bold;
+                    }
+                }
+                .active{
+                    color: #2C2424;
+                    font-weight: bold;
                 }
                 &::-webkit-scrollbar-track {
                     /*捲軸底色*/
@@ -87,9 +108,6 @@
                     /*捲軸本體顏色*/
                     background-color: rgba(79, 66, 62, .2);
                 }
-                // &:hover{
-                //     overflow: auto;
-                // }
             }
             .font{
                 font-family: "Playball";
@@ -120,7 +138,7 @@
                 .progress{
                     border-radius: 8px;
                     background-color: #D8BC6D;
-                    width: 50%;
+                    width: 0;
                     height: 100%;
                 }
             }
@@ -153,6 +171,11 @@
                 display: flex;
                 align-items: center;
                 gap: 24px;
+                i{
+                    color: #D8BC6D;
+                    font-size: 30px;
+                    cursor: pointer;
+                }
                 img{
                     cursor: pointer;
                 }
@@ -175,23 +198,34 @@
                     img{
                         margin-right: 8px;
                     }
+                    >div{
+                        // border: 1px solid red;
+                        width: 22px;
+                        height: 20px;
+                        margin-right: 8px;
+                        background-image: url(@/assets/images/tale_heart_on.svg);
+                        background-size: cover;
+                    }
+                    .off{
+                        background-image: url(@/assets/images/tale_heart_off.svg);
+                    }
                 }
             }
         }
     }
 
     @media (max-width:1500px){
-        height: 800px;
+        height: 650px;
          .tales_book{
-            height: 600px;
-            width: 1100px;
-            padding: 0 30px 0 125px;
+            height: 500px;
+            width: 1000px;
+            padding: 0 30px 12px 135px;
             .tales_img img{
-                width: 340px;
+                width: 300px;
                 border: 10px solid rgba(0, 0, 0, 0.8);
             }
             .tales_content{
-                margin-left: 120px;
+                margin-left: 60px;
                 .title{
                     .en{
                         font-size: 24px;
@@ -202,6 +236,7 @@
                 }
                 .content{
                     font-size: 18px;
+                    padding: 0 32px;
                 }
             }
         }
@@ -212,16 +247,16 @@
     }
 
      @media (max-width:1200px){
-        height: 700px;
+        height: 650px;
          .tales_book{
             height: 500px;
             width: 900px;
-            padding: 0 30px 0 105px;
+            padding: 0 30px 12px 135px;
             .tales_img img{
-                width: 280px;
+                width: 250px;
             }
             .tales_content{
-                margin-left: 100px;
+                margin-left: 70px;
                 .classify{
                     margin-top: 65px;
                     span{
@@ -305,7 +340,8 @@
                 list-style: none;
                 display: flex;
                 padding: 0 30px;
-                justify-content: space-evenly;
+                justify-content:center;
+                gap: 30px;
 
                 li {
                     width: 180px;
@@ -340,8 +376,18 @@
                             margin-right: 4px;
                         }
 
-                        .favorite {
+                       .favorite{
+                            display: flex;
+                            align-items: center;
                             cursor: pointer;
+                            div{
+                                 width: 13px ;
+                                 height: 11px;
+                                 background-image: url(@/assets/images/heart_on.svg);
+                            }
+                            .off{
+                                background-image: url(@/assets/images/heart_off.svg);
+                            }
                         }
                     }
 
@@ -372,7 +418,7 @@
             .list {
                 ul {
                     li {
-                        &:last-child {
+                        &:nth-child(8) {
                             display: none;
                         }
                     }
@@ -381,6 +427,7 @@
         }
     }
     @media(max-width:1530px) {
+        padding: 40px 0px;
         .others {
             .list {
                 ul {
@@ -473,7 +520,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 10px 40px;
+        padding: 10px 40px 50px 40px;
         overflow-y: scroll;
         &::-webkit-scrollbar-track {
             background-color: none;
@@ -517,15 +564,23 @@
 
         .book{
             width: 400px;
-            height: 500px;
+            height: 468px;
             background-image: url(@/assets/images/book_mb.svg);
             background-position: center;
             background-size: contain;
             background-repeat: no-repeat;
-            padding: 35px 20px 30px 20px;
+            position: relative;
             img{
-                width: 100%;
-            }
+                width: 80%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform:translate(-50%,-50%);
+                -moz-transform:translate(-50%,-50%);
+                -ms-transform:translate(-50%,-50%);
+                -o-transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+}
         }
         
         .content{
@@ -536,21 +591,30 @@
             line-height: 26px;
             color: #FFFFFF;
             div{
+                color: rgb(255,255,255, .5);
                 margin: 20px 0;
+                display: flex;
+                width: 100%;
+                flex-wrap: wrap;
+                span{
+                    // font-family: "Special Elite", cursive;
+                    font-family: 'Noto Serif TC';
+                    white-space: nowrap;
+                    cursor: pointer;
+                }
+            }
+            .active{
+                color: #fff;
             }
         }
     
-        @media(max-width: 500px){
+        @media(max-width: 576px){
             padding: 10px 20px;
             .book{
                 margin-top: 5px;
-                width: 160px;
-                height: 220px;
+                width: 200px;
+                height: 234px;
                 padding: 5px;
-                img{
-                    width: 100%;
-                    margin-top: 15px;
-                }
             }
             .content{
                 font-family: 'Spectral';
@@ -559,6 +623,7 @@
                 font-size: 18px;
                 line-height: 26px;
                 color: #FFFFFF;
+                padding-bottom: 60px;
                 div{
                     margin: 20px 0;
                 }
@@ -570,7 +635,6 @@
         bottom: 0;
         width: 100%;
         display: flex;
-        margin-top: 10px;
         justify-content: space-between;
         align-items: center;
         background-color:rgba(0,0,0,.8);
@@ -583,6 +647,24 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            i{
+                font-size: 30px;
+                color: #D8BC6D;
+            }
+        }
+        .like{
+            >div {
+                // border: 1px solid red;
+                width: 22px;
+                height: 20px;
+                margin-right: 8px;
+                background-image: url(@/assets/images/tale_heart_on.svg);
+                background-size: cover;
+            }
+            
+            .off {
+                background-image: url(@/assets/images/tale_heart_off.svg);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <section class="modal_shadow">
-        <div class="modal animate__animated animate__fadeInDown" id="modal01" :style="backgroundColor">
+        <div class="modal animate__animated animate__fadeInDown" id="modal01">
             <div class="close_btn" @click="closeModal">
                 <!-- <span><img src="../assets/images/back_btn.svg" alt="" /></span> -->
                 <span><img src="../../assets/images/close_btn.svg" alt="" /></span>
@@ -38,6 +38,7 @@
 import { ref, reactive, computed, onMounted } from "vue";
 import { loginStore } from "../../store/login";
 const login = loginStore();
+
 
 const closeModal = () => {
     login.close();

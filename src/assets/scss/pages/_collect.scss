@@ -80,10 +80,20 @@
                         height: 10px;
                         margin-right: 4px;
                     }
+                    .favorite{
+                           display: flex;
+                           align-items: center;
+                           cursor: pointer;
+                           div{
+                                width: 13px ;
+                                height: 11px;
+                                background-image: url(@/assets/images/heart_on.svg);
+                           }
+                           .off{
+                               background-image: url(@/assets/images/heart_off.svg);
+                           }
+                       }
 
-                    .favorite {
-                        cursor: pointer;
-                    }
                 }
 
                 .book_name {

@@ -88,7 +88,7 @@ import { useChatStore } from "@/store/chat.js"
 import { useUserStore } from "@/store/user.js"
 import { loginStore } from "@/store/login";
 import * as signalR from "@aspnet/signalr";
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, onUnmounted } from 'vue';
 
 const chatStore = useChatStore();
 const userStore = useUserStore();
@@ -102,7 +102,7 @@ const boardNow = ref(0);
 const alert = ref("");
 const isBottom = ref("bottom:0px");
 
-const chatUrl = "http://192.168.11.42:9856/chathub";
+const chatUrl = "https://storyapi.funday.asia/chathub";
 
 onMounted(() => {
     window.addEventListener("scroll", onBottom);
@@ -112,7 +112,7 @@ onMounted(() => {
     connection.value.start().then(() => {
         connection.value.invoke("JoinRoom", "1")
         chatStore.getMessages();
-        chatStore.getRecentMessages(1)
+        chatStore.getRecentMessages(2)
     })
 
     connection.value.on("RecieveGroupMessage", (e) => {
@@ -130,7 +130,9 @@ onMounted(() => {
     }, 5000);
 })
 
-
+onUnmounted(() => {
+    window.removeEventListener("scroll", onBottom)
+})
 
 const fnBoardToggle = () => {
     if (board.value) {
@@ -212,7 +214,7 @@ const send = () => {
 }
 
 const onBottom = () => {
-    if (window.innerWidth < 1200) return;
+    // if (window.innerWidth < 1200) return;
     const h = document.body.scrollHeight; //網頁的高度
     const c = document.documentElement.scrollTop; //滾動條距離網頁頂部的高度
     const wh = window.innerHeight; //頁面可視化區域高度

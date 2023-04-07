@@ -2,83 +2,48 @@
     <section class="tales_top_pc">
         <div class="tales_book">
             <div class="tales_img">
-                <img src="@/assets/images/list_img.svg" alt="">
+                <img :src="commonStore.talesInfo.photo_url" alt="">
             </div>
             <div class="tales_content">
                 <div class="classify">
                     <img src="@/assets/images/tale_icon.png" alt="">
-                    <span>安徒生童話 Andersen's Fairytales</span>
+                    <span>{{ commonStore.talesInfo.Category_cName }}&nbsp;{{ eName }}</span>
                 </div>
                 <div class="title">
-                    <span class="en">Alice in Wonderland Chap 4-10 The Rabbit Sends in a Little Bill</span>
-                    <span class="ch">愛麗絲夢遊仙境 第四章之十一</span>
+                    <span class="en">{{ commonStore.talesInfo.eTitle }}</span>
+                    <span class="ch">{{ commonStore.talesInfo.cTitle }}</span>
                 </div>
                 <div class="content" id="font_para">
-                    <div>
-                        ”Nay, this is too much!” said the learned man. ”It is just as one takes it!” said the shadow.
-                        ”It
-                        will do you much good to travel! Will you be my shadow? You shall have everything free on the
-                        journey!”
-                    </div>
-                    <div>
-                        ”Nay, that is too bad!” said the learned man. ”But it is just so with the wZorld!” said the
-                        shadow,
-                        ”and so it will be!” and away it went again.
-                        The learned man was not at all in the most enviable state; grief and torment followed him, and
-                        what
-                        he said about the true, and the good, and the beautiful, was, to most persons, like roses for a
-                        cow!
-                        He was quite ill at last.
-                    </div>
-                    <div>
-                        ”You really look like a shadow!” said his friends to him; and the learned man trembled, for he
-                        thought of it.
-                        ”You must go to a watering-place!” said the shadow, who came and visited him. ”There is nothing
-                        else
-                        for it! I will take you with me for old acquaintance’ sake; I will pay the travelling expenses,
-                        and
-                        you
-                    </div>
-                    <div>
-                        ”You really look like a shadow!” said his friends to him; and the learned man trembled, for he
-                        thought of it.
-                        ”You must go to a watering-place!” said the shadow, who came and visited him. ”There is nothing
-                        else
-                        for it! I will take you with me for old acquaintance’ sake; I will pay the travelling expenses,
-                        and
-                        you
-                    </div>
-                    <div>
-                        ”You really look like a shadow!” said his friends to him; and the learned man trembled, for he
-                        thought of it.
-                        ”You must go to a watering-place!” said the shadow, who came and visited him. ”There is nothing
-                        else
-                        for it! I will take you with me for old acquaintance’ sake; I will pay the travelling expenses,
-                        and
-                        you
+                    <div v-for="(item, index) in commonStore.talesContent" :data-start="item.clock"
+                        :class="{ active: nowParaClass === item.clock }">
+                        <span v-for="(el, i) in item.Econtent.split(' ')" @click="fnSearchWord(el, $event)">
+                            {{ el.replace("“", "''").replace("”", "''") }}&nbsp;</span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="tales_bar">
             <div class="time_bar">
-                <span>05:34</span>
+                <span>{{ time }}</span>
                 <div>
-                    <div class="progress"></div>
+                    <div class="progress" :style="nowProgress"></div>
                 </div>
-                <span>11:00</span>
+                <span>{{ endTime }}</span>
             </div>
             <div class="control_bar">
                 <div class="left" @click="fontChange">字型切換</div>
                 <div class="center">
-                    <img src="@/assets/images/prev.svg" alt="">
-                    <img src="@/assets/images/play.svg" alt="">
-                    <img src="@/assets/images/next.svg" alt="">
+                    <img src="@/assets/images/prev.svg" alt="" @click="goTales(commonStore.talesOthers.previous_id)">
+                    <div @click="playAudio(commonStore.talesInfo.indx)">
+                        <i class="fa-sharp fa-solid fa-circle-pause" v-if="audio"></i>
+                        <i class="fa-sharp fa-solid fa-circle-play" v-else></i>
+                    </div>
+                    <img src="@/assets/images/next.svg" alt="" @click="goTales(commonStore.talesOthers.next_id)">
                 </div>
+                <audio :src="commonStore.talesInfo.urls" id="audioFile"></audio>
                 <div class="right">
-                    <div class="like" @click="like">
-                        <img src="@/assets/images/tale_heart_off.svg" alt="">
-                        <!-- <img src="@/assets/images/tale_heart_on.svg" alt=""> -->
+                    <div class="like" @click="toplike(commonStore.talesInfo.indx)">
+                        <div id="favorite" :class="{ off: commonStore.talesInfo.Bookmark === '0' }"></div>
                         <span>收藏</span>
                     </div>
                     <div @click="share">
@@ -90,7 +55,7 @@
         </div>
     </section>
     <section class="tales_bottom_pc">
-        <div class="others">
+        <div class="others" v-if="commonStore.otherEpisode.length > 1">
             <div class="title">
                 <div>
                     <h1>其他集數</h1>
@@ -100,124 +65,22 @@
             <div class="list">
                 <img src="@/assets/images/bookself.png" alt="">
                 <ul>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="" @click="goTales">
+                    <li v-for="(item, index) in commonStore.otherEpisode">
+                        <img :src="item.Pic" alt="" @click="goTales(item.Id)">
                         <div class="tool_bar">
-                            <span class="watch">3341次</span>
+                            <span class="watch">
+                                {{ item.Clicks }}
+                                次
+                            </span>
                             <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
+                                <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                             </span>
                         </div>
                         <div class="book_name">
                             <span>
-                                The Adventures of Tom Sawyer Chap6-3
+                                {{ item.eTitle }}
                             </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="" @click="goTales">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="" @click="goTales">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
+                            <span>{{ item.cTitle }}</span>
                         </div>
                     </li>
                 </ul>
@@ -233,124 +96,22 @@
             <div class="list">
                 <img src="@/assets/images/bookself.png" alt="">
                 <ul>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="" @click="goTales">
+                    <li v-for="(item, index) in commonStore.otherStory">
+                        <img :src="item.Pic" alt="" @click="goTales(item.Id)">
                         <div class="tool_bar">
-                            <span class="watch">3341次</span>
+                            <span class="watch">
+                                {{ item.Clicks }}
+                                次
+                            </span>
                             <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
+                                <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                             </span>
                         </div>
                         <div class="book_name">
                             <span>
-                                The Adventures of Tom Sawyer Chap6-3
+                                {{ item.eTitle }}
                             </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="" @click="goTales">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/list_img.svg" alt="" @click="goTales">
-                        <div class="tool_bar">
-                            <span class="watch">3341次</span>
-                            <span class="favorite">
-                                <img src="@/assets/images/heart_off.svg" alt="">
-                            </span>
-                        </div>
-                        <div class="book_name">
-                            <span>
-                                The Adventures of Tom Sawyer Chap6-3
-                            </span>
-                            <span>湯姆歷險記 第六章 之三</span>
+                            <span>{{ item.cTitle }}</span>
                         </div>
                     </li>
                 </ul>
@@ -359,64 +120,31 @@
     </section>
     <section class="tales_top_mb">
         <div class="title">
-            <span class="en">Alice in Wonderland Chap 4-10 The Rabbit Sends in a Little Bill</span>
-            <span class="ch">愛麗絲夢遊仙境 第四章之十一</span>
+            <span class="en">{{ commonStore.talesInfo.eTitle }}</span>
+            <span class="ch">{{ commonStore.talesInfo.cTitle }}</span>
         </div>
         <div class="book">
-            <img src="@/assets/images/list_img.svg" alt="">
+            <img :src="commonStore.talesInfo.photo_url" alt="">
         </div>
         <div class="content">
-            <div>
-                ”Nay, this is too much!” said the learned man. ”It is just as one takes it!” said the shadow.
-                ”It
-                will do you much good to travel! Will you be my shadow? You shall have everything free on the
-                journey!”
-            </div>
-            <div>
-                ”Nay, that is too bad!” said the learned man. ”But it is just so with the wZorld!” said the
-                shadow,
-                ”and so it will be!” and away it went again.
-                The learned man was not at all in the most enviable state; grief and torment followed him, and
-                what
-                he said about the true, and the good, and the beautiful, was, to most persons, like roses for a
-                cow!
-                He was quite ill at last.
-            </div>
-            <div>
-                ”You really look like a shadow!” said his friends to him; and the learned man trembled, for he
-                thought of it.
-                ”You must go to a watering-place!” said the shadow, who came and visited him. ”There is nothing
-                else
-                for it! I will take you with me for old acquaintance’ sake; I will pay the travelling expenses,
-                and
-                you
-            </div>
-            <div>
-                ”You really look like a shadow!” said his friends to him; and the learned man trembled, for he
-                thought of it.
-                ”You must go to a watering-place!” said the shadow, who came and visited him. ”There is nothing
-                else
-                for it! I will take you with me for old acquaintance’ sake; I will pay the travelling expenses,
-                and
-                you
-            </div>
-            <div>
-                ”You really look like a shadow!” said his friends to him; and the learned man trembled, for he
-                thought of it.
-                ”You must go to a watering-place!” said the shadow, who came and visited him. ”There is nothing
-                else
-                for it! I will take you with me for old acquaintance’ sake; I will pay the travelling expenses,
-                and
-                you
+            <div v-for="(item, index) in commonStore.talesContent" :data-start="item.clock"
+                :class="{ active: nowParaClass === item.clock }">
+                <span v-for="(el, i) in item.Econtent.split(' ')" @click="fnSearchWord(el, $event)">
+                    {{ el.replace("“", "''").replace("”", "''") }}&nbsp;</span>
             </div>
         </div>
     </section>
     <section class="tool_bar_mb">
-        <img src="@/assets/images/tale_heart_off.svg" alt="">
+        <div class="like" @click="toplike(commonStore.talesInfo.indx)">
+            <div id="favorite_mb" :class="{ off: commonStore.talesInfo.Bookmark === '0' }"></div>
+        </div>
         <div>
-            <img src="@/assets/images/prev.svg" alt="">
-            <img src="@/assets/images/play.svg" alt="">
-            <img src="@/assets/images/next.svg" alt="">
+            <img src="@/assets/images/prev.svg" alt="" @click="goTales(commonStore.talesOthers.previous_id)">
+            <div @click="playAudio(commonStore.talesInfo.indx)">
+                <i class="fa-sharp fa-solid fa-circle-pause" v-if="audio"></i>
+                <i class="fa-sharp fa-solid fa-circle-play" v-else></i>
+            </div>
+            <img src="@/assets/images/next.svg" alt="" @click="goTales(commonStore.talesOthers.next_id)">
         </div>
         <img src="@/assets/images/share.svg" alt="" @click="share">
     </section>
@@ -432,20 +160,20 @@
                     <p>複製連結</p>
                 </div>
                 <div>
-                    <a :href="lineurl" title="FunMusic" target="_blank"><img src="@/assets/images/Line.svg"
+                    <a :href="shareUrl.line" title="FunMusic" target="_blank"><img src="@/assets/images/Line.svg"
                             alt="" /></a>
                     <p>Line</p>
                 </div>
                 <div>
-                    <a :href="fburl"><img src="@/assets/images/FB.svg" alt="" /></a>
+                    <a :href="shareUrl.fb"><img src="@/assets/images/FB.svg" alt="" /></a>
                     <p>FB</p>
                 </div>
                 <div>
-                    <a :href="emailurl" target="_blank"><img src="@/assets/images/Gmail.svg" alt="" /></a>
+                    <a :href="shareUrl.gmail" target="_blank"><img src="@/assets/images/Gmail.svg" alt="" /></a>
                     <p>Gmail</p>
                 </div>
                 <div>
-                    <a :href="linkedinurl" target="_blank" title="Share on LinkedIn"><img
+                    <a :href="shareUrl.linkedin" target="_blank" title="Share on LinkedIn"><img
                             src="@/assets/images/Linkedin.svg" alt="" /></a>
                     <p>Linkedin</p>
                 </div>
@@ -456,38 +184,71 @@
             <span @click="copyURL">複製</span>
         </div>
     </div>
+    <Dictionary v-show="DrWordModal" @close-dic="closeDic"></Dictionary>
 </template>
 <script setup>
+import Dictionary from "@/components/layout/Dictionary.vue"
 import { useHeaderStore } from "@/store/header.js"
-import { onMounted, onUnmounted, ref } from "vue";
+import { useCommonStore } from "@/store/common.js"
+import { useUserStore } from "@/store/user";
+import { loginStore } from "@/store/login";
+import { useRouter, useRoute } from "vue-router";
+import { onMounted, ref, computed, reactive } from "vue";
 
 
 //store
 const header = useHeaderStore();
+const router = useRouter();
+const route = useRoute();
+const commonStore = useCommonStore();
+const loginStatus = loginStore();
+const user = useUserStore();
 
 //data
-const innerHeight = ref(0);
 const shareStatus = ref(false);
 const URL = ref(window.location.href);
 header.nowPage = 2;
 header.title = "";
-
-onMounted(() => {
-    window.addEventListener("resize", onResize);
-
-    innerHeight.value = `height:${window.innerHeight - 120}px`;
+const audio = ref(false);
+const interval = ref("");
+const nowParaClass = ref(0);
+const nowProgress = ref("width:0");
+const time = ref("00:00");
+const endTime = ref("00:00")
+const DrWordModal = ref(false);
+const shareUrl = reactive({
+    fb: "",
+    line: "",
+    gmail: "",
+    linkedin: ""
 })
 
-
-
-const onResize = () => {
-    if (window.innerWidth < 991) {
-        document.getElementById("footer").style.display = "none"
-    } else {
-        document.getElementById("footer").style.display = "flex"
+const eName = computed(() => {
+    switch (commonStore.talesInfo.Category_id) {
+        case '13':
+            return "Andersen's Fairytales"
+        case '9':
+            return "Grimm's Fairytales"
+        case '10':
+            return "Aesop's Fables"
+        case '24':
+            return "World Literature"
     }
-    innerHeight.value = `height:${window.innerHeight - 120}px`;
-};
+})
+
+onMounted(() => {
+    commonStore.getTalesData(route.query.id)
+    commonStore.isCount = false;
+    const audio = document.getElementById("audioFile");
+    audio.addEventListener("canplay", () => {
+        const m = Math.floor((audio.duration) / 60);
+        const s = Math.ceil((audio.duration) % 60);
+        const minute = m > 9 ? m : `0${m}`;
+        const second = s > 9 ? s : `0${s}`;
+        endTime.value = `${minute}:${second}`;
+    })
+})
+
 
 const fontChange = () => {
     const para = document.getElementById("font_para");
@@ -500,6 +261,14 @@ const fontChange = () => {
 
 const share = () => {
     shareStatus.value = !shareStatus.value;
+    const path = window.location.href;
+    shareUrl.fb = `javascript: void(window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent('${path}'))));`;
+    //*Line
+    shareUrl.line = `https://social-plugins.line.me/lineit/share?url=${path}`;
+    //*email
+    shareUrl.gmail = `mailto:?to=&subject=FunMusic&body=${path}`;
+    //*Linkedin
+    shareUrl.linkedin = `https://www.linkedin.com/sharing/share-offsite/?url=${path}`;
 }
 
 const copyURL = () => {
@@ -508,4 +277,146 @@ const copyURL = () => {
     document.execCommand("copy");
 }
 
+const playAudio = (id) => {
+    if (!user.isLogin) {
+        loginStatus.$patch({
+            status: true,
+        });
+        return;
+    }
+    if (!commonStore.isCount) {
+        commonStore.fnCount(id);
+    }
+    const audioEl = document.getElementById("audioFile");
+    if (audio.value) {
+        audioEl.pause();
+        clearInterval(interval.value)
+    } else {
+        var eles = document.querySelectorAll("[data-start]");
+        var arr = Array.prototype.slice.call(eles);
+        audioEl.play();
+
+        interval.value = setInterval(() => {
+
+            //timer
+            const m = Math.floor((audioEl.currentTime) / 60);
+            const s = Math.ceil((audioEl.currentTime) % 60);
+            const minute = m > 9 ? m : `0${m}`;
+            const second = s > 9 ? s : `0${s}`;
+            time.value = `${minute}:${second}`;
+
+            //progress bar
+            const nowTime = audioEl.currentTime.toFixed(0);
+            const progress = nowTime / audioEl.duration * 100;
+            nowProgress.value = `width:${progress}%`
+
+            //change para
+            const nowPara = arr.find(x => x.getAttribute("data-start") == nowTime);
+            if (nowPara) {
+                nowParaClass.value = nowPara.getAttribute("data-start");
+                document.getElementById("font_para").scrollTo({
+                    top: nowPara.offsetTop - 200,
+                    behavior: "smooth"
+                })
+            }
+
+            //audio ended
+            audioEl.onended = () => {
+                clearInterval(interval.value);
+                goTales(commonStore.talesOthers.next_id);
+            }
+        }, 1000)
+    }
+    audio.value = !audio.value;
+}
+
+
+const goTales = (id) => {
+    router.push({
+        name: "Tales",
+        query: {
+            id: id,
+        },
+    });
+}
+
+const toplike = async (id) => {
+    let el;
+    if (window.innerWidth > 991) {
+        el = document.getElementById("favorite");
+    } else {
+        el = document.getElementById("favorite_mb");
+    }
+    await commonStore.fnLike(id).then(() => {
+        if (el.classList.contains("off")) {
+            el.classList.remove("off");
+        } else {
+            el.classList.add("off");
+        }
+    });
+}
+
+
+const like = async (id, e) => {
+    const el = e.target;
+    await commonStore.fnLike(id).then(() => {
+        if (el.classList.contains("off")) {
+            el.classList.remove("off");
+        } else {
+            el.classList.add("off");
+        }
+    });
+}
+
+
+//搜尋單字
+const fnSearchWord = async (target, evt) => {
+    if (document.querySelector(".select") !== null) {
+        document.querySelector(".select").classList.remove("select");
+    }
+    evt.target.classList.add("select");
+    const str = target
+        .replace(".", "")
+        .replace("?", "")
+        .replace("!", "")
+        .replace(";", "")
+        .replace("’", "'")
+        .replace(")", "")
+        .replace("(", "")
+        .replace('"', "")
+        .replace("--", "")
+        .replace("-", "")
+        .replace("；", "")
+        .replace("“", "")
+        .replace("”", "")
+        .replace(",", "");
+
+    const md5str = md5(`${str}|Funday1688`);
+
+    await commonStore.getWords(str, md5str);
+    DrWordModal.value = true;
+    document.querySelector(".Dr_title .word h3").innerHTML = str;
+
+    const blkHeight = evt.pageY + 430;
+    const windowHeight = window.innerHeight;
+    const adjust = blkHeight - (blkHeight - windowHeight);
+    if (window.innerWidth > 991) {
+        document.querySelector(".DrWord").style.left = `${evt.pageX - 300
+            }px`;
+        if (blkHeight < windowHeight) {
+            document.querySelector(".DrWord").style.top = `${evt.pageY + 20
+                }px`;
+        } else {
+            document.querySelector(".DrWord").style.top =
+                adjust - 420 + "px";
+        }
+    }
+}
+
+const closeDic = () => {
+    DrWordModal.value = false;
+    if (document.querySelector(".select") !== null) {
+        document.querySelector(".select").classList.remove("select");
+    }
+}
 </script>

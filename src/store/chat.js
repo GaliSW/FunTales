@@ -8,10 +8,10 @@ export const useChatStore = defineStore("chatStore", () => {
     //data
     const messages = ref([]);
     const resentMessages = ref([]);
-    const getMsgApi = "http://192.168.11.42:9856/api/Chats/1";
+    const getMsgApi = "https://storyapi.funday.asia/api/Chats/1";
     const getRecentMsgApi =
-        "http://192.168.11.42:9856/api/Chats/MostRecentMessage";
-    const sendMsgApi = "http://192.168.11.42:9856/api/Chats/Message";
+        "https://storyapi.funday.asia/api/Chats/MostRecentMessage";
+    const sendMsgApi = "https://storyapi.funday.asia/api/Chats/Message";
     //actions
     const getMessages = () => {
         axios.get(getMsgApi).then((res) => {

@@ -16,25 +16,32 @@
                     </label>
                 </div>
                 <div class="subWeb">
-                    <a href="https://music.funday.asia" target="_blank">FunMusic</a>
-                    <a href="https://tube.funday.asia" target="_blank">FunTube</a>
-                    <a href="https://tube.funday.asia" target="_blank">FunDictionary</a>
-                    <a href="https://funday.asia" target="_blank">FunDay</a>
+                    <a :href="'https://music.funday.asia' + token" target="_blank">FunMusic</a>
+                    <a :href="'https://tube.funday.asia' + token" target="_blank">FunTube</a>
+                    <a :href="'https://funradio.funday.asia' + token" target="_blank">FunRadio</a>
+                    <a :href="'https://dic.funday.asia/' + token" target="_blank">FunDictionary</a>
+                    <a :href="'https://funday.asia/api/SSO.asp' + token" target="_blank">FunDay</a>
                 </div>
             </div>
             <div class="right">
-                <router-link to="/MyFavorite" class="collect">
+                <div class="checkin" @click="ckeckin">
+                    打卡
+                </div>
+                <div class="program" @click="programPop = true">
+                    優惠活動
+                </div>
+                <div class="collect" @click="toMyfav">
                     <img src="@/assets/images/collect.svg" alt="" />
                     <span>我的收藏</span>
-                </router-link>
+                </div>
 
                 <div class="right_pc_login" @click="login()" v-if="!status">
                     <span>免費加入</span> <img src="../../assets/images/join.svg" alt="" />
                 </div>
-                <div class="right_mb">
-                    <img src="../../assets/images/login.svg" alt="" />
+                <div class="right_mb" v-if="!status">
+                    <img src="../../assets/images/login.svg" alt="" @click="login()" />
                 </div>
-                <div class="right_pc_logout" v-if="status" @click="logout()">
+                <div class="right_pc_logout" v-else @click="logout()">
                     <img src="../../assets/images/logout.svg" alt="" />
                 </div>
             </div>
@@ -48,27 +55,34 @@
                     </span>
                 </router-link>
                 <div class="subWeb">
-                    <a href="https://music.funday.asia" target="_blank">FunMusic</a>
-                    <a href="https://tube.funday.asia" target="_blank">FunTube</a>
-                    <a href="https://tube.funday.asia" target="_blank">FunDic</a>
-                    <a href="https://funday.asia" target="_blank">FunDay</a>
+                    <a :href="'https://music.funday.asia' + token" target="_blank">FunMusic</a>
+                    <a :href="'https://tube.funday.asia' + token" target="_blank">FunTube</a>
+                    <a :href="'https://funradio.funday.asia' + token" target="_blank">FunRadio</a>
+                    <a :href="'https://dic.funday.asia/' + token" target="_blank">FunDictionary</a>
+                    <a :href="'https://funday.asia/api/SSO.asp' + token" target="_blank">FunDay</a>
                 </div>
             </div>
             <div class="right">
-                <router-link to="/MyFavorite" class="collect">
+                <div class="checkin" @click="ckeckin">
+                    打卡
+                </div>
+                <div class="program" @click="programPop = true">
+                    優惠活動
+                </div>
+                <div @click="toMyfav" class="collect">
                     <img src="@/assets/images/collect.svg" alt="" />
                     <span>我的收藏</span>
-                </router-link>
+                </div>
 
-                <div class="right_pc_login">
+                <div class="right_pc_login" v-if="!status" @click="login()">
                     <span>免費加入</span> <img src="../../assets/images/join.svg" alt="" />
                 </div>
-                <div class="right_mb">
+                <div class="right_mb" v-if="!status" @click="login()">
                     <img src="../../assets/images/login.svg" alt="" />
                 </div>
-                <!-- <div class="right_pc_logout">
-                                                                                                <img src="../../assets/images/logout.svg" alt="" />
-                                                                                            </div> -->
+                <div class="right_pc_logout" v-else @click="logout()">
+                    <img src="../../assets/images/logout.svg" alt="" />
+                </div>
             </div>
         </div>
         <div class="modal-3" v-if="modal == 3">
@@ -80,27 +94,34 @@
                     </span>
                 </router-link>
                 <div class="subWeb">
-                    <a href="https://music.funday.asia" target="_blank">FunMusic</a>
-                    <a href="https://tube.funday.asia" target="_blank">FunTube</a>
-                    <a href="https://tube.funday.asia" target="_blank">FunDic</a>
-                    <a href="https://funday.asia" target="_blank">FunDay</a>
+                    <a :href="'https://music.funday.asia' + token" target="_blank">FunMusic</a>
+                    <a :href="'https://tube.funday.asia' + token" target="_blank">FunTube</a>
+                    <a :href="'https://funradio.funday.asia' + token" target="_blank">FunRadio</a>
+                    <a :href="'https://dic.funday.asia/' + token" target="_blank">FunDictionary</a>
+                    <a :href="'https://funday.asia/api/SSO.asp' + token" target="_blank">FunDay</a>
                 </div>
             </div>
             <div class="right">
-                <router-link to="/MyFavorite" class="collect">
+                <div class="checkin" @click="ckeckin">
+                    打卡
+                </div>
+                <div class="program" @click="programPop = true">
+                    優惠活動
+                </div>
+                <div @click="toMyfav" class="collect">
                     <img src="@/assets/images/collect.svg" alt="" />
                     <span>我的收藏</span>
-                </router-link>
+                </div>
 
-                <div class="right_pc_login">
+                <div class="right_pc_login" v-if="!status" @click="login()">
                     <span>免費加入</span> <img src="../../assets/images/join.svg" alt="" />
                 </div>
-                <div class="right_mb">
+                <div class="right_mb" v-if="!status" @click="login()">
                     <img src="../../assets/images/login.svg" alt="" />
                 </div>
-                <!-- <div class="right_pc_logout">
-                                                                                                <img src="../../assets/images/logout.svg" alt="" />
-                                                                                            </div> -->
+                <div class="right_pc_logout" @click="logout()" v-else>
+                    <img src="../../assets/images/logout.svg" alt="" />
+                </div>
             </div>
             <div class="back" @click="back">
                 <img src="@/assets/images/return.svg" alt="">
@@ -108,24 +129,21 @@
             <div class="title">{{ header.title }}</div>
         </div>
     </header>
-    <div class="notification_wrapper_mobile" v-if="modal !== 2">
-        <div class="notification_mobile animate__animated">
-            <img src="@/assets/images/head_default.svg" alt="">
-            <span v-cloak class="male">Gary</span>
-            <div class="wrapper" v-cloak>
-                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;</p>
-                <p class="first">正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;</p>
-                <p class="second">正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;</p>
-            </div>
+    <div id="program_pop" v-if="programPop">
+        <div>
+            <i class="fa-solid fa-circle-xmark" @click="programPop = false"></i>
+            <img src="@/assets/images/checkin/detailPC.png" alt="" class="pc">
+            <img src="@/assets/images/checkin/detailMB.png" alt="" class="mb">
         </div>
     </div>
 </template>
 
 <script setup>
 
-import { computed, onMounted } from "@vue/runtime-core";
+import { computed, onMounted, ref } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
 import { useHeaderStore } from "@/store/header.js";
+import { useCommonStore } from "@/store/common.js"
 import { loginStore } from "@/store/login";
 import { useUserStore } from "@/store/user";
 
@@ -135,6 +153,8 @@ import { useUserStore } from "@/store/user";
 const header = useHeaderStore();
 const loginStatus = loginStore();
 const user = useUserStore();
+const commonStore = useCommonStore();
+const token = computed(() => `?fdtk=${user.token}`);
 
 //router
 const router = useRouter();
@@ -142,8 +162,10 @@ const router = useRouter();
 //data
 const modal = computed(() => header.nowPage);
 const status = computed(() => user.isLogin);
+const programPop = ref(false)
 
 onMounted(() => {
+    user.token = localStorage.getItem("fdtk");
     const logoImg = document.getElementById("logoImg");
     const logoText = document.getElementById("logoText");
     setInterval(() => {
@@ -155,6 +177,21 @@ onMounted(() => {
             logoText.classList.remove("none");
         }
     }, 6000);
+    window.onload = () => {
+        window.google.accounts.id.initialize({
+            client_id:
+                "424336502494-0lqsgtdqhq1eq58dspl52uc13k168uon.apps.googleusercontent.com",
+            callback: login.handleCredentialResponse,
+        });
+        window.google.accounts.id.renderButton(
+            document.getElementById("google_signup"),
+            { theme: "outline", size: "large", width: "307px" }
+        );
+        // window.google.accounts.id.renderButton(
+        //     document.getElementById("google_login"),
+        //     { theme: "outline", size: "large", width: "307px" }
+        // );
+    }
 })
 
 const back = () => {
@@ -168,4 +205,27 @@ const login = () => {
 const logout = () => {
     loginStatus.logout();
 };
+
+const toMyfav = () => {
+    if (!user.isLogin) {
+        loginStatus.$patch({
+            status: true,
+        });
+        return;
+    }
+    router.push({
+        name: "MyFavorite",
+    });
+}
+
+const ckeckin = () => {
+    if (!user.isLogin) {
+        loginStatus.$patch({
+            status: true,
+        });
+        return;
+    } else {
+        commonStore.checkinPop = true;
+    }
+}
 </script>

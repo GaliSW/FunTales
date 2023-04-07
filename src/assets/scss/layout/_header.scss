@@ -97,6 +97,36 @@ header {
                     padding-bottom: 4px;
                 }
             }
+            .checkin{
+                text-decoration: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                font-weight: 600;
+                margin-right: 30px;
+                color: #74510c;
+                background-color: #ffba00;
+                padding: 0 16px;
+                height: 30px;
+                border-radius: 8px;
+            }
+            .program{
+                text-decoration: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                font-weight: 600;
+                margin-right: 30px;
+                color: #c61806;
+                background-color: #fff;
+                padding: 0 16px;
+                height: 30px;
+                border-radius: 8px;
+            }
             .right_pc_login {
                 font-size: 17px;
                 font-weight: 600;
@@ -195,6 +225,10 @@ header {
                    span{
                     display: none;
                    }
+                }
+                .checkin,.program{
+                    margin-right: 15px;
+                    padding: 0 4px;
                 }
                 .right_pc_login {
                     display: none;
@@ -307,6 +341,36 @@ header {
                     padding-bottom: 4px;
                 }
             }
+            .checkin{
+                text-decoration: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                font-weight: 600;
+                margin-right: 30px;
+                color: #74510c;
+                background-color: #ffba00;
+                padding: 0 16px;
+                height: 30px;
+                border-radius: 8px;
+            }
+            .program{
+                text-decoration: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                font-weight: 600;
+                margin-right: 30px;
+                color: #c61806;
+                background-color: #fff;
+                padding: 0 16px;
+                height: 30px;
+                border-radius: 8px;
+            }
             .right_pc_login {
                 font-size: 17px;
                 font-weight: 600;
@@ -354,6 +418,10 @@ header {
                    span{
                     display: none;
                    }
+                }
+                .checkin,.program{
+                    margin-right: 15px;
+                    padding: 0 4px;
                 }
                 .right_pc_login {
                     display: none;
@@ -466,6 +534,36 @@ header {
                     padding-bottom: 4px;
                 }
             }
+            .checkin{
+                text-decoration: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                font-weight: 600;
+                margin-right: 30px;
+                color: #74510c;
+                background-color: #ffba00;
+                padding: 0 16px;
+                height: 30px;
+                border-radius: 8px;
+            }
+            .program{
+                text-decoration: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                font-weight: 600;
+                margin-right: 30px;
+                color: #c61806;
+                background-color: #fff;
+                padding: 0 16px;
+                height: 30px;
+                border-radius: 8px;
+            }
             .right_pc_login {
                 font-size: 17px;
                 font-weight: 600;
@@ -526,6 +624,56 @@ header {
                 -moz-transform: translate(-50%, -50%);
                 -ms-transform: translate(-50%, -50%);
                 -o-transform: translate(-50%, -50%);
+            }
+        }
+    }
+}
+#program_pop {
+    position: fixed;
+    background-color: rgba(0, 0, 0, .8);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+        position: relative;
+        display: flex;
+
+        i {
+            cursor: pointer;
+            position: absolute;
+            right: -32px;
+            top: -32px;
+            color: #848383;
+            font-size: 48px;
+        }
+
+        img {
+            cursor: pointer;
+            width: 1000px;
+        }
+        .mb{
+            display: none;
+        }
+        @media(max-width:1200px){
+            i{
+                font-size: 32px;
+                right: -24px;
+                top: -24px;
+            }
+            img{
+                width: 300px;
+            }
+            .pc{
+                display: none;
+            }
+            .mb {
+                display: block;
             }
         }
     }
