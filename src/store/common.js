@@ -90,7 +90,11 @@ export const useCommonStore = defineStore("CommonStore", () => {
                 `https://funday.asia/api/storyWeb/ClassifyPg.asp?PG=1&CategoryId=9995&member_id=${user.mid}&StoryId=${id}`
             )
             .then((res) => {
-                otherEpisode.value = res.data["其它集數"].slice(0, 8);
+                if (res.data["其它集數"][0].Id == "") {
+                    otherEpisode.value = [];
+                } else {
+                    otherEpisode.value = res.data["其它集數"].slice(0, 8);
+                }
             });
         //其他故事
         axios
@@ -124,13 +128,7 @@ export const useCommonStore = defineStore("CommonStore", () => {
             .get(
                 `https://funday.asia/api/storyWeb/ClassifyPg.asp?PG=${page.value}&CategoryId=9996&member_id=${user.mid}`
             )
-            .then((res) => {
-                console.log(res);
-                // const arr = res.data[cate];
-                // categoryList.value = arr;
-                // page.value++;
-                // addCategory(id, cate);
-            });
+            .then((res) => {});
     };
 
     const addCategory = (id, cate) => {
@@ -166,7 +164,6 @@ export const useCommonStore = defineStore("CommonStore", () => {
                     `https://funday.asia/api/storyWeb/Behavior.asp?member_id=${user.mid}&ref_id=${id}&action=favorite`
                 )
                 .then((res) => {
-                    console.log(res, id);
                     isClick.value = false;
                     resolve();
                 });
@@ -180,7 +177,6 @@ export const useCommonStore = defineStore("CommonStore", () => {
                 `https://funday.asia/api/storyWeb/Behavior.asp?member_id=${user.mid}&ref_id=${id}&action=click`
             )
             .then((res) => {
-                console.log(res);
                 if (res.data.State == 1) {
                     isCount.value = true;
                 }
@@ -274,12 +270,18 @@ export const useCommonStore = defineStore("CommonStore", () => {
                     `https://funday.asia/api/StoryWeb/checkin.asp?mindx=${user.mid}`
                 )
                 .then((res) => {
-                    console.log(res);
                     checkIndex.value = Number(res.data.checkinC);
                     checkDevice.value = res.data.device;
+                    if (checkIndex.value === 8) {
+                        checkIndex.value = 7;
+                        isCheck.value = true;
+                        return resolve();
+                    }
                     if (res.data.checkinToday == 0) {
                         isCheck.value = false;
-                        checkIndex.value++;
+                        if (checkIndex.value < 7) {
+                            checkIndex.value++;
+                        }
                     } else {
                         isCheck.value = true;
                     }
@@ -296,7 +298,6 @@ export const useCommonStore = defineStore("CommonStore", () => {
                     `https://funday.asia/api/StoryWeb/checkin.asp?mindx=${user.mid}&tg=U`
                 )
                 .then((res) => {
-                    console.log(res);
                     checkIndex.value = Number(res.data.checkinC);
                     checkDevice.value = res.data.device;
                     isCheck.value = false;

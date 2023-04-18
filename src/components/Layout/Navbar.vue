@@ -2,9 +2,9 @@
     <section class="navbar">
         <div class="navbar_wrapper">
             <ul class="nav_list">
-                <li @click="findClass(3, 10)">伊索寓言</li>
                 <li @click="findClass(1, 13)">安徒生童話</li>
                 <li @click="findClass(2, 9)">格林童話</li>
+                <li @click="findClass(3, 10)">伊索寓言</li>
                 <li @click="findClass(4, 24)">世界名著</li>
             </ul>
             <div class="podcast" @click="podcast">
@@ -19,129 +19,6 @@
                 <img class="radio_btn" src="@/assets/images/radio_pause.svg" alt="" v-if="radioStatus">
                 <audio id="Fun_audio" :src="stream"></audio>
             </div>
-            <!-- <div class="notification_wrapper">
-                <transition-group appear tag="ul" class="notification" name="fade">
-                    <li v-cloak class="animate__animated animate__fadeInLeft">
-                        <div>
-                            <img src="@/assets/images/head_default.svg" alt="">
-                        </div>
-                        <div>
-                            <span class="male">Gary</span>
-                            <div class="wrapper">
-                                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs</p>
-                                <p class="first">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                                <p class="second">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-cloak class="animate__animated animate__fadeInLeft">
-                        <div>
-                            <img src="@/assets/images/head_default.svg" alt="">
-                        </div>
-                        <div>
-                            <span class="male">Gary</span>
-                            <div class="wrapper">
-                                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs</p>
-                                <p class="first">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                                <p class="second">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-cloak class="animate__animated animate__fadeInLeft">
-                        <div>
-                            <img src="@/assets/images/head_default.svg" alt="">
-                        </div>
-                        <div>
-                            <span class="male">Gary</span>
-                            <div class="wrapper">
-                                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs</p>
-                                <p class="first">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                                <p class="second">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-cloak class="animate__animated animate__fadeInLeft">
-                        <div>
-                            <img src="@/assets/images/head_default.svg" alt="">
-                        </div>
-                        <div>
-                            <span class="male">Gary</span>
-                            <div class="wrapper">
-                                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs</p>
-                                <p class="first">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                                <p class="second">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-cloak class="animate__animated animate__fadeInLeft">
-                        <div>
-                            <img src="@/assets/images/head_default.svg" alt="">
-                        </div>
-                        <div>
-                            <span class="female">Nina</span>
-                            <div class="wrapper">
-                                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs</p>
-                                <p class="first">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                                <p class="second">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-cloak class="animate__animated animate__fadeInLeft">
-                        <div>
-                            <img src="@/assets/images/head_default.svg" alt="">
-                        </div>
-                        <div>
-                            <span class="male">Gary</span>
-                            <div class="wrapper">
-                                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs</p>
-                                <p class="first">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                                <p class="second">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-cloak class="animate__animated animate__fadeInLeft">
-                        <div>
-                            <img src="@/assets/images/head_default.svg" alt="">
-                        </div>
-                        <div>
-                            <span class="male">Gary</span>
-                            <div class="wrapper">
-                                <p class="width">正在閱讀 The Goose That Laid the Golden Eggs</p>
-                                <p class="first">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                                <p class="second">
-                                    正在閱讀 The Goose That Laid the Golden Eggs&nbsp;&nbsp;&nbsp;
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                </transition-group>
-            </div> -->
         </div>
     </section>
 </template>

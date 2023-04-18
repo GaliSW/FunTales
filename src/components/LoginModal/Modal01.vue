@@ -6,7 +6,7 @@
                 <span><img src="../../assets/images/close_btn.svg" alt="" /></span>
             </div>
             <div class="title">
-                <img src="../../assets/images/FunDictionary.svg" alt="" />
+                <img src="@/assets/images/logo.png" alt="" />
                 <!-- <span>&nbsp;|&nbsp;</span> -->
                 <!-- <span>{{ title }}</span> -->
             </div>

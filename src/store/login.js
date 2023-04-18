@@ -43,12 +43,14 @@ export const loginStore = defineStore({
                     if (res.data.IsSuccess) {
                         user.mid = res.data.Content.Mindx;
                         user.cid = res.data.Content.Cindx;
+                        user.userPic = res.data.Content.Pic;
+                        user.sex = res.data.Content.Sex;
                         user.isLogin = true;
                         sessionStorage.setItem("mid", res.data.Content.Mindx);
                         sessionStorage.setItem("cid", res.data.Content.Cindx);
                         localStorage.setItem("fdtk", token);
                         router.push({
-                            name: "Home",
+                            path: "/",
                         });
                     } else {
                         return false;
@@ -93,7 +95,7 @@ export const loginStore = defineStore({
                 return false;
             }
             const sex = sexColumn.value;
-            let Adid = 1658;
+            let Adid = 61;
             if (sessionStorage.getItem("ADid")) {
                 Adid = sessionStorage.getItem("ADid");
             }
@@ -133,7 +135,6 @@ export const loginStore = defineStore({
                 axios
                     .post("https://funday.asia/api/JoinCheck.asp", json)
                     .then((res) => {
-                        // console.log(res);
                         if (res.data.StateId == 0) {
                             alert("驗證碼錯誤");
                         } else {
@@ -185,7 +186,6 @@ export const loginStore = defineStore({
                 alert("請輸入手機正確格式");
                 return false;
             } else {
-                // console.log(oldPhone);
                 const json = JSON.stringify({
                     EditTel: newPhone,
                     Tel: oldPhone,
@@ -209,7 +209,6 @@ export const loginStore = defineStore({
                     `https://webaspapi.funday.asia/api/User/Login?ID=${account}&Password=${pass}`
                 )
                 .then((res) => {
-                    console.log(res);
                     if (res.data.IsSuccess) {
                         this.close();
                         user.mid = res.data.Content.Mindx;
@@ -241,7 +240,6 @@ export const loginStore = defineStore({
 
         //* === FB SDK GetFbProfile ===
         GetFbProfile(fbLogin) {
-            // console.log("fblogin");
             const vm = this;
             //取得用戶個資
             FB.api("/me", "GET", { fields: "id,email" }, function (user) {
@@ -300,7 +298,6 @@ export const loginStore = defineStore({
                         `https://webaspapi.funday.asia/api/User/Login?FBID=${id}`
                     )
                     .then((res) => {
-                        // console.log(res);
                         if (res.data.IsSuccess) {
                             vm.close();
                             sessionStorage.setItem(
@@ -368,7 +365,7 @@ export const loginStore = defineStore({
                 return false;
             }
             const sex = sexColumn.value;
-            let Adid = 1658;
+            let Adid = 61;
             if (sessionStorage.getItem("ADid")) {
                 Adid = sessionStorage.getItem("ADid");
             }
@@ -513,7 +510,7 @@ export const loginStore = defineStore({
                 return false;
             }
             const sex = sexColumn.value;
-            let Adid = 1658;
+            let Adid = 61;
             if (sessionStorage.getItem("ADid")) {
                 Adid = sessionStorage.getItem("ADid");
             }
@@ -562,7 +559,6 @@ export const loginStore = defineStore({
                     }
                 )
                 .then((res) => {
-                    console.log(res);
                     const user = useUserStore();
                     user.chatUserId = res.data.result.id;
                     sessionStorage.setItem("chatId", res.data.result.id);

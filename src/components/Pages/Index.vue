@@ -13,7 +13,7 @@
                     <div class="banner_para">
                         <div v-for="(item, index) in commonStore.banner.data" :data-start="item.clock"
                             :class="{ active: nowParaClass === item.clock }">
-                            <span v-for="(el, i) in item.Econtent.split(' ')">
+                            <span v-for="(el, i) in item.Econtent.split(' ')" @click="fnSearchWord(el, $event)">
                                 {{ el.replace("“", "''").replace("”", "''") }}&nbsp;</span>
                         </div>
                     </div>
@@ -34,9 +34,9 @@
                             <li v-for="(item, index) in commonStore.hotClick" @click="goTales(item.Id, 24)">
                                 <img :src="item.Pic" alt="">
                                 <div>
-                                    <span class="count_view">{{ item.Clicks }}次</span>
                                     <span class="en">{{ item.eTitle }}</span>
                                     <span class="ch">{{ item.cTitle }}</span>
+                                    <span class="count_view">{{ item.Clicks }}次</span>
                                 </div>
                             </li>
                         </ul>
@@ -44,9 +44,9 @@
                             <li v-for="(item, index) in commonStore.hotBook" @click="goTales(item.Id, 24)">
                                 <img :src="item.Pic" alt="">
                                 <div>
-                                    <span class="count_view">{{ item.Clicks }}次</span>
                                     <span class="en">{{ item.eTitle }}</span>
                                     <span class="ch">{{ item.cTitle }}</span>
+                                    <span class="count_fav">{{ item.Bookmark }}次</span>
                                 </div>
                             </li>
                         </ul>
@@ -55,37 +55,6 @@
             </div>
         </section>
         <section class="index_bottom">
-            <div class="classify" id="class3">
-                <div class="classify_title">
-                    <div>
-                        <h1>伊索寓言</h1>
-                        <span>Aesop's Fables</span>
-                    </div>
-                    <div class="more" @click="toCategory(10)">
-                        MORE
-                    </div>
-                </div>
-                <div class="classify_list">
-                    <img src="@/assets/images/bookself.png" alt="">
-                    <ul>
-                        <li v-for="(item, index) in commonStore.cateAesop">
-                            <img :src="item.Pic" alt="" @click="goTales(item.Id, 10)">
-                            <div class="tool_bar">
-                                <span class="watch">{{ item.Clicks }}次</span>
-                                <span class="favorite">
-                                    <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
-                                </span>
-                            </div>
-                            <div class="book_name">
-                                <span>
-                                    {{ item.eTitle }}
-                                </span>
-                                <span>{{ item.cTitle }}</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <div class="classify" id="class1">
                 <div class="classify_title">
                     <div>
@@ -107,7 +76,7 @@
                                     <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                                 </span>
                             </div>
-                            <div class="book_name">
+                            <div class="book_name" @click="goTales(item.Id, 13)">
                                 <span>
                                     {{ item.eTitle }}
                                 </span>
@@ -138,7 +107,38 @@
                                     <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                                 </span>
                             </div>
-                            <div class="book_name">
+                            <div class="book_name" @click="goTales(item.Id, 9)">
+                                <span>
+                                    {{ item.eTitle }}
+                                </span>
+                                <span>{{ item.cTitle }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="classify" id="class3">
+                <div class="classify_title">
+                    <div>
+                        <h1>伊索寓言</h1>
+                        <span>Aesop's Fables</span>
+                    </div>
+                    <div class="more" @click="toCategory(10)">
+                        MORE
+                    </div>
+                </div>
+                <div class="classify_list">
+                    <img src="@/assets/images/bookself.png" alt="">
+                    <ul>
+                        <li v-for="(item, index) in commonStore.cateAesop">
+                            <img :src="item.Pic" alt="" @click="goTales(item.Id, 10)">
+                            <div class="tool_bar">
+                                <span class="watch">{{ item.Clicks }}次</span>
+                                <span class="favorite">
+                                    <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
+                                </span>
+                            </div>
+                            <div class="book_name" @click="goTales(item.Id, 10)">
                                 <span>
                                     {{ item.eTitle }}
                                 </span>
@@ -169,7 +169,7 @@
                                     <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                                 </span>
                             </div>
-                            <div class="book_name">
+                            <div class="book_name" @click="goTales(item.Id, 24)">
                                 <span>
                                     {{ item.eTitle }}
                                 </span>
@@ -207,10 +207,12 @@
             </div>
         </section>
     </section>
+    <Dictionary v-show="DrWordModal" @close-dic="closeDic"></Dictionary>
     <Board></Board>
 </template>
 
 <script setup>
+import Dictionary from "@/components/layout/Dictionary.vue"
 import { useHeaderStore } from "@/store/header.js"
 import { useCommonStore } from "@/store/common.js"
 import { useRouter, useRoute } from "vue-router";
@@ -232,6 +234,7 @@ const audio = ref(false);
 const interval = ref("");
 const nowParaClass = ref(0);
 const skeleton = ref(true);
+const DrWordModal = ref(false);
 
 
 
@@ -314,4 +317,55 @@ const like = async (id, e) => {
     });
 }
 
+
+//搜尋單字
+const fnSearchWord = async (target, evt) => {
+    if (document.querySelector(".select") !== null) {
+        document.querySelector(".select").classList.remove("select");
+    }
+    evt.target.classList.add("select");
+    const str = target
+        .replace(".", "")
+        .replace("?", "")
+        .replace("!", "")
+        .replace(";", "")
+        .replace("’", "'")
+        .replace(")", "")
+        .replace("(", "")
+        .replace('"', "")
+        .replace("--", "")
+        .replace("-", "")
+        .replace("；", "")
+        .replace("“", "")
+        .replace("”", "")
+        .replace(",", "");
+
+    const md5str = md5(`${str}|Funday1688`);
+
+    await commonStore.getWords(str, md5str);
+    DrWordModal.value = true;
+    document.querySelector(".Dr_title .word h3").innerHTML = str;
+
+    const blkHeight = evt.pageY + 430;
+    const windowHeight = window.innerHeight;
+    const adjust = blkHeight - (blkHeight - windowHeight);
+    if (window.innerWidth > 991) {
+        document.querySelector(".DrWord").style.left = `${evt.pageX - 300
+            }px`;
+        if (blkHeight < windowHeight) {
+            document.querySelector(".DrWord").style.top = `${evt.pageY + 20
+                }px`;
+        } else {
+            document.querySelector(".DrWord").style.top =
+                adjust - 420 + "px";
+        }
+    }
+}
+
+const closeDic = () => {
+    DrWordModal.value = false;
+    if (document.querySelector(".select") !== null) {
+        document.querySelector(".select").classList.remove("select");
+    }
+}
 </script>

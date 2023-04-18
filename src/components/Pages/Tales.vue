@@ -55,7 +55,7 @@
         </div>
     </section>
     <section class="tales_bottom_pc">
-        <div class="others" v-if="commonStore.otherEpisode.length > 1">
+        <div class="others" v-if="commonStore.otherEpisode.length >= 1">
             <div class="title">
                 <div>
                     <h1>其他集數</h1>
@@ -76,7 +76,7 @@
                                 <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                             </span>
                         </div>
-                        <div class="book_name">
+                        <div class="book_name" @click="goTales(item.Id)">
                             <span>
                                 {{ item.eTitle }}
                             </span>
@@ -107,7 +107,7 @@
                                 <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                             </span>
                         </div>
-                        <div class="book_name">
+                        <div class="book_name" @click="goTales(item.Id)">
                             <span>
                                 {{ item.eTitle }}
                             </span>
@@ -193,7 +193,7 @@ import { useCommonStore } from "@/store/common.js"
 import { useUserStore } from "@/store/user";
 import { loginStore } from "@/store/login";
 import { useRouter, useRoute } from "vue-router";
-import { onMounted, ref, computed, reactive } from "vue";
+import { onMounted, ref, computed, reactive, onUnmounted, onBeforeMount } from "vue";
 
 
 //store
@@ -209,6 +209,7 @@ const shareStatus = ref(false);
 const URL = ref(window.location.href);
 header.nowPage = 2;
 header.title = "";
+const canplay = ref(false);
 const audio = ref(false);
 const interval = ref("");
 const nowParaClass = ref(0);
@@ -239,16 +240,38 @@ const eName = computed(() => {
 onMounted(() => {
     commonStore.getTalesData(route.query.id)
     commonStore.isCount = false;
-    const audio = document.getElementById("audioFile");
-    audio.addEventListener("canplay", () => {
-        const m = Math.floor((audio.duration) / 60);
-        const s = Math.ceil((audio.duration) % 60);
-        const minute = m > 9 ? m : `0${m}`;
-        const second = s > 9 ? s : `0${s}`;
-        endTime.value = `${minute}:${second}`;
-    })
+    if (location.href.indexOf("ADid") > -1) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const ADid = urlParams.get("ADid");
+        if (ADid) {
+            sessionStorage.setItem("ADid", ADid);
+        }
+    } else {
+        if (window.innerWidth > 1200) {
+            const audio = document.getElementById("audioFile");
+            audio.addEventListener("canplaythrough", firstLoad)
+        }
+    }
 })
 
+onUnmounted(() => {
+    const audio = document.getElementById("audioFile");
+    audio.removeEventListener("canplay", firstLoad)
+})
+
+const firstLoad = () => {
+    if (canplay.value) return;
+    const audio = document.getElementById("audioFile");
+    const m = Math.floor((audio.duration) / 60);
+    const s = Math.ceil((audio.duration) % 60);
+    const minute = m > 9 ? m : `0${m}`;
+    const second = s > 9 ? s : `0${s}`;
+    endTime.value = `${minute}:${second}`;
+    playAudio(commonStore.talesInfo.indx)
+    audio.value = true;
+    canplay.value = true
+}
 
 const fontChange = () => {
     const para = document.getElementById("font_para");
@@ -290,14 +313,13 @@ const playAudio = (id) => {
     const audioEl = document.getElementById("audioFile");
     if (audio.value) {
         audioEl.pause();
+        audio.value = false;
         clearInterval(interval.value)
     } else {
         var eles = document.querySelectorAll("[data-start]");
         var arr = Array.prototype.slice.call(eles);
         audioEl.play();
-
         interval.value = setInterval(() => {
-
             //timer
             const m = Math.floor((audioEl.currentTime) / 60);
             const s = Math.ceil((audioEl.currentTime) % 60);
@@ -326,8 +348,8 @@ const playAudio = (id) => {
                 goTales(commonStore.talesOthers.next_id);
             }
         }, 1000)
+        audio.value = true;
     }
-    audio.value = !audio.value;
 }
 
 

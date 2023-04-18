@@ -36,15 +36,13 @@ body {
   display: none;
 }
 
-#bg {
+#wrapper {
   position: fixed;
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../images/bg.png);
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 3;
 }
 
 [v-cloak] {
@@ -141,7 +139,7 @@ header .modal-1 .right .collect img {
 header .modal-1 .right .collect span {
   padding-bottom: 4px;
 }
-header .modal-1 .right .checkin {
+header .modal-1 .right .checkin, header .modal-1 .right .program {
   text-decoration: none;
   cursor: pointer;
   display: flex;
@@ -152,21 +150,6 @@ header .modal-1 .right .checkin {
   margin-right: 30px;
   color: #74510c;
   background-color: #ffba00;
-  padding: 0 16px;
-  height: 30px;
-  border-radius: 8px;
-}
-header .modal-1 .right .program {
-  text-decoration: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  font-weight: 600;
-  margin-right: 30px;
-  color: #c61806;
-  background-color: #fff;
   padding: 0 16px;
   height: 30px;
   border-radius: 8px;
@@ -360,7 +343,7 @@ header .modal-2 .right .collect img {
 header .modal-2 .right .collect span {
   padding-bottom: 4px;
 }
-header .modal-2 .right .checkin {
+header .modal-2 .right .checkin, header .modal-2 .right .program {
   text-decoration: none;
   cursor: pointer;
   display: flex;
@@ -371,21 +354,6 @@ header .modal-2 .right .checkin {
   margin-right: 30px;
   color: #74510c;
   background-color: #ffba00;
-  padding: 0 16px;
-  height: 30px;
-  border-radius: 8px;
-}
-header .modal-2 .right .program {
-  text-decoration: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  font-weight: 600;
-  margin-right: 30px;
-  color: #c61806;
-  background-color: #fff;
   padding: 0 16px;
   height: 30px;
   border-radius: 8px;
@@ -538,7 +506,7 @@ header .modal-3 .right .collect img {
 header .modal-3 .right .collect span {
   padding-bottom: 4px;
 }
-header .modal-3 .right .checkin {
+header .modal-3 .right .checkin, header .modal-3 .right .program {
   text-decoration: none;
   cursor: pointer;
   display: flex;
@@ -549,21 +517,6 @@ header .modal-3 .right .checkin {
   margin-right: 30px;
   color: #74510c;
   background-color: #ffba00;
-  padding: 0 16px;
-  height: 30px;
-  border-radius: 8px;
-}
-header .modal-3 .right .program {
-  text-decoration: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  font-weight: 600;
-  margin-right: 30px;
-  color: #c61806;
-  background-color: #fff;
   padding: 0 16px;
   height: 30px;
   border-radius: 8px;
@@ -2023,7 +1976,7 @@ header .modal-3 .back, header .modal-3 .title {
   height: 100%;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2038,6 +1991,7 @@ header .modal-3 .back, header .modal-3 .title {
   top: -32px;
   color: #848383;
   font-size: 48px;
+  z-index: 3;
 }
 #checkin_pop div img {
   cursor: pointer;
@@ -2095,6 +2049,7 @@ header .modal-3 .back, header .modal-3 .title {
   height: 400px;
   margin-left: 40px;
   margin-top: 35px;
+  cursor: pointer;
 }
 .index_top .banner .banner_left .skeleton {
   width: 300px;
@@ -2197,7 +2152,14 @@ header .modal-3 .back, header .modal-3 .title {
 .index_top .banner .banner_center .banner_para div span {
   font-family: "Noto Serif TC";
   white-space: nowrap;
-  cursor: default;
+  cursor: pointer;
+}
+.index_top .banner .banner_center .banner_para div span:hover {
+  color: #b64646;
+}
+.index_top .banner .banner_center .banner_para div .select {
+  color: #222222;
+  font-weight: bold;
 }
 .index_top .banner .banner_center .banner_para .active {
   color: #2C2424;
@@ -2360,12 +2322,14 @@ header .modal-3 .back, header .modal-3 .title {
 }
 .index_top .banner .banner_right .banner_list .tab_list li img {
   width: 70px;
+  min-width: 70px;
   height: 84px;
   margin-right: 8px;
 }
 .index_top .banner .banner_right .banner_list .tab_list li div {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .index_top .banner .banner_right .banner_list .tab_list li .en {
   font-weight: 400;
@@ -2397,6 +2361,9 @@ header .modal-3 .back, header .modal-3 .title {
   display: flex;
   color: #4E423D;
   align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 .index_top .banner .banner_right .banner_list .tab_list li .count_view::before {
   content: "";
@@ -2417,6 +2384,9 @@ header .modal-3 .back, header .modal-3 .title {
   display: flex;
   color: #4E423D;
   align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 .index_top .banner .banner_right .banner_list .tab_list li .count_fav::before {
   content: "";
@@ -2454,6 +2424,7 @@ header .modal-3 .back, header .modal-3 .title {
   }
   .index_top .banner .banner_right .banner_list .tab_list li img {
     width: 45px;
+    min-width: 45px;
     height: 54px;
     margin-right: 4px;
   }
@@ -2508,12 +2479,13 @@ header .modal-3 .back, header .modal-3 .title {
     display: flex;
     flex-direction: column;
     width: 80px;
-    justify-content: flex-start;
+    justify-content: space-between;
     gap: 4px;
     margin: 4px 16px 0 0;
   }
   .index_top .banner .banner_right .banner_list .tab_list li img {
     width: 70px;
+    min-width: none;
     height: auto;
     margin-right: 4px;
   }
@@ -2523,6 +2495,9 @@ header .modal-3 .back, header .modal-3 .title {
   }
   .index_top .banner .banner_right .banner_list .tab_list li .en {
     -webkit-line-clamp: 2;
+  }
+  .index_top .banner .banner_right .banner_list .tab_list li .count_view, .index_top .banner .banner_right .banner_list .tab_list li .count_fav {
+    position: static;
   }
 }
 
@@ -2646,6 +2621,7 @@ header .modal-3 .back, header .modal-3 .title {
   background-image: url(@/assets/images/heart_off.svg);
 }
 .index_bottom .classify .classify_list ul li .book_name {
+  cursor: pointer;
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 400;
@@ -2928,6 +2904,9 @@ header .modal-3 .back, header .modal-3 .title {
   font-weight: 400;
   font-size: 16px;
   color: #DDDDDD;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
 }
 .collect_blk .classify .classify_list .classify_wrapper .book_name span {
   overflow: hidden;
@@ -3111,6 +3090,7 @@ header .modal-3 .back, header .modal-3 .title {
   background-image: url(@/assets/images/heart_off.svg);
 }
 .more_blk .classify .classify_list .classify_wrapper .book_name {
+  cursor: pointer;
   width: 100%;
   max-width: 180px;
   margin-top: 4px;
@@ -3587,12 +3567,12 @@ header .modal-3 .back, header .modal-3 .title {
   background-image: url(@/assets/images/heart_off.svg);
 }
 .tales_bottom_pc .others .list ul li .book_name {
-  margin-top: 20px;
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   color: #DDDDDD;
+  cursor: pointer;
 }
 .tales_bottom_pc .others .list ul li .book_name span {
   overflow: hidden;
@@ -3821,7 +3801,7 @@ header .modal-3 .back, header .modal-3 .title {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 3;
+  z-index: 4;
 }
 
 .modal {

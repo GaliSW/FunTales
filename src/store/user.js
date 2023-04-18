@@ -39,7 +39,6 @@ export const useUserStore = defineStore({
                     `https://funday.asia/NewMylessonMobile/api/WordCard?member_id=${mid}&customer_id=${cid}`
                 )
                 .then((res) => {
-                    console.log(res);
                     res.data.data.forEach((array) => {
                         this.order.push(
                             array[0]["En_word"].slice(0, 1).toUpperCase()
@@ -55,7 +54,6 @@ export const useUserStore = defineStore({
         },
         //單字庫比對
         compare() {
-            // console.log("2");
             const allLi = document.querySelectorAll(".alphabet ul li");
 
             allLi.forEach((item) => {

@@ -7,6 +7,7 @@ import Index from "@/components/pages/Index.vue";
 import More from "@/components/pages/More.vue";
 import Collect from "@/components/pages/Collect.vue";
 import Tales from "@/components/pages/Tales.vue";
+import ThankYou from "@/components/pages/ThankYou.vue";
 
 const scrollBehavior = (to, from, savedPosition) => {
     if (savedPosition && to.meta.keepAlive) {
@@ -16,8 +17,8 @@ const scrollBehavior = (to, from, savedPosition) => {
 };
 
 export const router = createRouter({
-    history: createWebHashHistory(),
-    // history: createWebHistory(),
+    // history: createWebHashHistory(),
+    history: createWebHistory(),
     scrollBehavior,
     routes: [
         {
@@ -39,6 +40,11 @@ export const router = createRouter({
             path: "/Tales",
             name: "Tales",
             component: Tales,
+        },
+        {
+            path: "/ThankYou",
+            name: "ThankYou",
+            component: ThankYou,
         },
     ],
 });

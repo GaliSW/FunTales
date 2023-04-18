@@ -1,6 +1,6 @@
 <template>
-    <!-- <div id="bg">
-    </div> -->
+    <div id="wrapper" v-if="loginWrapper && !user.isLogin" @click="toLogin">
+    </div>
     <Header></Header>
     <Login></Login>
     <main :class="{ block: nowPage == 2 }">
@@ -28,6 +28,7 @@ import { ref } from "vue";
 import { useHeaderStore } from "@/store/header.js"
 import { useUserStore } from "@/store/user.js";
 import { useCommonStore } from "@/store/common.js"
+import { loginStore } from "@/store/login";
 import { onMounted } from "vue";
 import { computed } from '@vue/reactivity';
 //store
@@ -35,26 +36,68 @@ const header = useHeaderStore();
 const userStore = useUserStore();
 const user = useUserStore();
 const commonStore = useCommonStore();
+const loginStatus = loginStore();
 //data
 const podcastStatus = ref(false);
-
+const loginWrapper = ref(true)
 const nowPage = computed(() => header.nowPage);
 
 const podcast = () => {
     podcastStatus.value = !podcastStatus.value;
 }
 
-onMounted(() => {
-    commonStore.checkinPop = true;
+
+onMounted(async () => {
     if (sessionStorage.getItem('mid')) {
+        loginWrapper.value = false;
         userStore.mid = sessionStorage.getItem('mid')
         userStore.cid = sessionStorage.getItem('cid')
         userStore.userPic = sessionStorage.getItem('pic')
         userStore.sex = sessionStorage.getItem('sex')
         userStore.chatUserId = sessionStorage.getItem('chatId')
+        user.token = localStorage.getItem("fdtk");
         userStore.isLogin = true;
+        await commonStore.fnCheckinRecord();
+        if (!commonStore.isCheck) {
+            commonStore.checkinPop = true;
+        }
+    } else {
+        commonStore.checkinPop = true;
     }
+
+    if (location.href.indexOf("ADid") > -1) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const ADid = urlParams.get("ADid");
+        if (ADid) {
+            sessionStorage.setItem("ADid", ADid);
+        }
+    }
+
+    //token ckeck
+    if (location.href.indexOf("fdtk") > -1 && location.href.split("=")[1] !== "") {
+        const token = location.href.split("=")[1];
+        user.token = token;
+        loginStatus.tokenCheck(token);
+        console.log(token)
+    } else {
+        if (localStorage.getItem("fdtk") && !user.isLogin) {
+            const token = localStorage.getItem("fdtk");
+            loginStatus.tokenCheck(token);
+        } else {
+            return false;
+        }
+    }
+
+
 })
+
+const toLogin = () => {
+    loginWrapper.value = false;
+    loginStatus.$patch({
+        status: true,
+    });
+}
 
 </script>
 

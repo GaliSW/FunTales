@@ -43,7 +43,8 @@
                 </ul>
             </div>
             <div class="send_bar">
-                <img class="userPic" src="@/assets/images/board/head_default.svg" alt="" v-if="userStore.userPic == ''" />
+                <img class="userPic" src="@/assets/images/board/head_default.svg" alt=""
+                    v-if="userStore.userPic == 'null' || !userStore.userPic" />
                 <img class="userPic" :src="userStore.userPic" alt="" v-else />
                 <div>
                     <input type="text" id="userMessage" @keyup.enter="send" placeholder="說點什麼..." />

@@ -9,14 +9,14 @@
             </div>
             <div class="classify_list">
                 <div class="classify_wrapper" v-for="(item, index) in commonStore.categoryList">
-                    <img :src="item.Pic" alt="" @click="goTales(item.Id, 9)">
+                    <img :src="item.Pic" alt="" @click="goTales(item.Id)">
                     <div class="tool_bar">
                         <span class="watch"> {{ item.Clicks }} 次</span>
                         <span class="favorite">
                             <div :class="{ off: item.Bookmark === '0' }" @click="like(item.Id, $event)"></div>
                         </span>
                     </div>
-                    <div class="book_name">
+                    <div class="book_name" @click="goTales(item.Id)">
                         <span>
                             {{ item.eTitle }}
                         </span>
@@ -66,12 +66,11 @@ const onBottom = async () => {
 }
 
 
-const goTales = (id, cateId) => {
+const goTales = (id) => {
     router.push({
         name: "Tales",
         query: {
-            id: id,
-            category: cateId
+            id: id
         },
     });
 }

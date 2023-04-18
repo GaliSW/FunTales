@@ -28,7 +28,7 @@
                     打卡
                 </div>
                 <div class="program" @click="programPop = true">
-                    優惠活動
+                    活動資訊
                 </div>
                 <div class="collect" @click="toMyfav">
                     <img src="@/assets/images/collect.svg" alt="" />
@@ -181,16 +181,12 @@ onMounted(() => {
         window.google.accounts.id.initialize({
             client_id:
                 "424336502494-0lqsgtdqhq1eq58dspl52uc13k168uon.apps.googleusercontent.com",
-            callback: login.handleCredentialResponse,
+            callback: loginStatus.handleCredentialResponse,
         });
         window.google.accounts.id.renderButton(
             document.getElementById("google_signup"),
             { theme: "outline", size: "large", width: "307px" }
         );
-        // window.google.accounts.id.renderButton(
-        //     document.getElementById("google_login"),
-        //     { theme: "outline", size: "large", width: "307px" }
-        // );
     }
 })
 

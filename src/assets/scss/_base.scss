@@ -31,15 +31,13 @@ body{
 .none{
     display: none;
 }
-#bg {
+#wrapper {
     position: fixed;
     top: 0;
     width: 100%;
     height: 100%;
-    background-image: url(../images/bg.png);
-    background-size: cover;
-    background-position:center;
-    z-index: -1;
+    background-color: rgba(0,0,0,0);
+    z-index: 3;
 }
 [v-cloak] {
     display: none;

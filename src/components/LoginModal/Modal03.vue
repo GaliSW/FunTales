@@ -6,14 +6,15 @@
                 <span @click="closeModal"><img src="../../assets/images/close_btn.svg" alt="" /></span>
             </div>
             <div class="title">
-                <img src="../../assets/images/FunDictionary.svg" alt="" />
+                <img src="@/assets/images/logo.png" alt="" />
                 <!-- <span>&nbsp;|&nbsp;</span>
         <span>{{ title }}</span> -->
             </div>
             <div class="info">
                 <form action="#">
                     <input type="text" name="account" id="account" placeholder="帳號(信箱)" autocomplete="on" />
-                    <input type="password" name="password" id="password" placeholder="手機(密碼)" autocomplete="on" />
+                    <input type="password" name="password" id="password" placeholder="手機(密碼)" autocomplete="on"
+                        @keyup.enter="mailLogin" />
                     <div @click="remember">
                         <img src="../../assets/images/uncheck.svg" alt="" v-if="!isRemember" />
                         <img src="../../assets/images/checked.svg" alt="" v-else />
