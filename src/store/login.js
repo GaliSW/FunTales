@@ -208,7 +208,7 @@ export const loginStore = defineStore({
                 .get(
                     `https://webaspapi.funday.asia/api/User/Login?ID=${account}&Password=${pass}`
                 )
-                .then((res) => {
+                .then(async (res) => {
                     if (res.data.IsSuccess) {
                         this.close();
                         user.mid = res.data.Content.Mindx;
@@ -223,7 +223,7 @@ export const loginStore = defineStore({
                         sessionStorage.setItem("sex", res.data.Content.Sex);
                         localStorage.setItem("fdtk", res.data.Content.Token);
                         this.joinGroup(res.data.Content.Mindx);
-                        commonStore.fnCheckinRecord(res.data.Content.Mindx);
+                        await commonStore.fnCheckinRecord();
                         commonStore.checkinPop = true;
                     } else {
                         alert("帳號或密碼錯誤");
@@ -297,7 +297,7 @@ export const loginStore = defineStore({
                     .get(
                         `https://webaspapi.funday.asia/api/User/Login?FBID=${id}`
                     )
-                    .then((res) => {
+                    .then(async (res) => {
                         if (res.data.IsSuccess) {
                             vm.close();
                             sessionStorage.setItem(
@@ -318,7 +318,7 @@ export const loginStore = defineStore({
                             );
                             user.isLogin = true;
                             user.token = res.data.Content.Token;
-                            commonStore.fnCheckinRecord(res.data.Content.Mindx);
+                            await commonStore.fnCheckinRecord();
                             commonStore.checkinPop = true;
                         } else {
                             alert("此Facebook帳號尚未註冊");
@@ -439,7 +439,7 @@ export const loginStore = defineStore({
                             .get(
                                 `https://webaspapi.funday.asia/api/User/Login?GoogleID=${id}`
                             )
-                            .then((res) => {
+                            .then(async (res) => {
                                 if (res.data.IsSuccess) {
                                     vm.close();
                                     sessionStorage.setItem(
@@ -460,9 +460,7 @@ export const loginStore = defineStore({
                                     );
                                     user.isLogin = true;
                                     user.token = res.data.Content.Token;
-                                    commonStore.fnCheckinRecord(
-                                        res.data.Content.Mindx
-                                    );
+                                    await commonStore.fnCheckinRecord();
                                     commonStore.checkinPop = true;
                                 } else {
                                     alert("此Google帳號尚未註冊");
