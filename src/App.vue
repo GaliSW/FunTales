@@ -64,6 +64,7 @@ onMounted(async () => {
         const ADid = urlParams.get("ADid");
         if (ADid) {
             sessionStorage.setItem("ADid", ADid);
+            commonStore.fnAdsCount(ADid);
         }
     }
 

@@ -306,6 +306,11 @@ export const useCommonStore = defineStore("CommonStore", () => {
         });
     };
 
+    //廣告點擊記數
+    const fnAdsCount = (id) => {
+        axios.get(`https://funday.asia/api/AdClick.asp?ad_id=${id}`);
+    };
+
     return {
         defaultData,
         banner,
@@ -343,5 +348,6 @@ export const useCommonStore = defineStore("CommonStore", () => {
         isCheck,
         checkIndex,
         checkDevice,
+        fnAdsCount,
     };
 });
