@@ -11,7 +11,7 @@
         © 2021 Brainstorm Digital Communications Corp. All rights reserved.Privacy Policy
     </footer>
     <Podcast v-if="podcastStatus" @podcast="podcast"></Podcast>
-    <Checkin v-if="commonStore.checkinPop"></Checkin>
+    <!-- <Checkin v-if="commonStore.checkinPop"></Checkin> -->
 </template>
 
 <script setup>
@@ -22,7 +22,6 @@ import Collect from '@/components/pages/Collect.vue';
 import More from '@/components/pages/More.vue';
 import Tales from '@/components/pages/Tales.vue';
 import Podcast from '@/components/layout/Podcast.vue';
-import Checkin from '@/components/layout/Checkin.vue';
 import Login from "./components/LoginModal/Login.vue";
 import { ref } from "vue";
 import { useHeaderStore } from "@/store/header.js"
@@ -54,15 +53,9 @@ onMounted(async () => {
         userStore.cid = sessionStorage.getItem('cid')
         userStore.userPic = sessionStorage.getItem('pic')
         userStore.sex = sessionStorage.getItem('sex')
-        userStore.chatUserId = sessionStorage.getItem('chatId')
+        loginStatus.joinGroup(sessionStorage.getItem('mid'))
         user.token = localStorage.getItem("fdtk");
         userStore.isLogin = true;
-        await commonStore.fnCheckinRecord();
-        if (!commonStore.isCheck) {
-            commonStore.checkinPop = true;
-        }
-    } else {
-        commonStore.checkinPop = true;
     }
 
     if (location.href.indexOf("ADid") > -1) {

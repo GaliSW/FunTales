@@ -24,12 +24,6 @@
                 </div>
             </div>
             <div class="right">
-                <div class="checkin" @click="ckeckin">
-                    打卡
-                </div>
-                <div class="program" @click="programPop = true">
-                    活動資訊
-                </div>
                 <div class="collect" @click="toMyfav">
                     <img src="@/assets/images/collect.svg" alt="" />
                     <span>我的收藏</span>

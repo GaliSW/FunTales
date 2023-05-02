@@ -35,6 +35,7 @@ export const loginStore = defineStore({
         //* === Token check ===
         tokenCheck(token) {
             const user = useUserStore();
+            const commonStore = useCommonStore();
             axios
                 .get(
                     `https://webaspapi.funday.asia/api/User/Login?Token=${token}`
@@ -46,6 +47,7 @@ export const loginStore = defineStore({
                         user.userPic = res.data.Content.Pic;
                         user.sex = res.data.Content.Sex;
                         user.isLogin = true;
+                        this.joinGroup(res.data.Content.Mindx);
                         sessionStorage.setItem("mid", res.data.Content.Mindx);
                         sessionStorage.setItem("cid", res.data.Content.Cindx);
                         localStorage.setItem("fdtk", token);
@@ -223,8 +225,6 @@ export const loginStore = defineStore({
                         sessionStorage.setItem("sex", res.data.Content.Sex);
                         localStorage.setItem("fdtk", res.data.Content.Token);
                         this.joinGroup(res.data.Content.Mindx);
-                        await commonStore.fnCheckinRecord();
-                        commonStore.checkinPop = true;
                     } else {
                         alert("帳號或密碼錯誤");
                     }
@@ -318,8 +318,6 @@ export const loginStore = defineStore({
                             );
                             user.isLogin = true;
                             user.token = res.data.Content.Token;
-                            await commonStore.fnCheckinRecord();
-                            commonStore.checkinPop = true;
                         } else {
                             alert("此Facebook帳號尚未註冊");
                             vm.$patch({
@@ -460,8 +458,6 @@ export const loginStore = defineStore({
                                     );
                                     user.isLogin = true;
                                     user.token = res.data.Content.Token;
-                                    await commonStore.fnCheckinRecord();
-                                    commonStore.checkinPop = true;
                                 } else {
                                     alert("此Google帳號尚未註冊");
                                     vm.$patch({

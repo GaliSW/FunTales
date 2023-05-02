@@ -264,7 +264,6 @@ export const useCommonStore = defineStore("CommonStore", () => {
 
     //打卡活動 檢查打卡
     const fnCheckinRecord = () => {
-        console.log("jasdhj");
         return new Promise((resolve, reject) => {
             axios
                 .get(
@@ -339,7 +338,6 @@ export const useCommonStore = defineStore("CommonStore", () => {
         getCategory,
         addCategory,
         getMyfav,
-        fnCheckinRecord,
         fnCheckinUpdate,
         checkinPop,
         isCheck,
