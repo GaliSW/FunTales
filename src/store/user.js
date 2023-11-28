@@ -14,6 +14,8 @@ export const useUserStore = defineStore({
         chatUserId: 0,
         userPic: "",
         sex: "",
+        level: "",
+        name: "",
     }),
 
     actions: {

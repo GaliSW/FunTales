@@ -16,11 +16,12 @@
                     </label>
                 </div>
                 <div class="subWeb">
-                    <a :href="'https://music.funday.asia' + token" target="_blank">FunMusic</a>
-                    <a :href="'https://tube.funday.asia' + token" target="_blank">FunTube</a>
-                    <a :href="'https://funradio.funday.asia' + token" target="_blank">FunRadio</a>
-                    <a :href="'https://dic.funday.asia/' + token" target="_blank">FunDictionary</a>
-                    <a :href="'https://funday.asia/api/SSO.asp' + token" target="_blank">FunDay</a>
+                    <a href="#" @click="redirect(0)">FunMusic</a>
+                    <a href="#" @click="redirect(1)">FunTube</a>
+                    <a href="#" @click="redirect(2)">FunRadio</a>
+                    <a href="#" @click="redirect(3)">FunDictionary</a>
+                    <a href="#" @click="redirect(4)">FunDay</a>
+                    <a href="#" @click="redirect(5)" class="more_service">更多會員服務</a>
                 </div>
             </div>
             <div class="right">
@@ -49,20 +50,15 @@
                     </span>
                 </router-link>
                 <div class="subWeb">
-                    <a :href="'https://music.funday.asia' + token" target="_blank">FunMusic</a>
-                    <a :href="'https://tube.funday.asia' + token" target="_blank">FunTube</a>
-                    <a :href="'https://funradio.funday.asia' + token" target="_blank">FunRadio</a>
-                    <a :href="'https://dic.funday.asia/' + token" target="_blank">FunDictionary</a>
-                    <a :href="'https://funday.asia/api/SSO.asp' + token" target="_blank">FunDay</a>
+                    <a href="#" @click="redirect(0)">FunMusic</a>
+                    <a href="#" @click="redirect(1)">FunTube</a>
+                    <a href="#" @click="redirect(2)">FunRadio</a>
+                    <a href="#" @click="redirect(3)">FunDictionary</a>
+                    <a href="#" @click="redirect(4)">FunDay</a>
+                    <a href="#" @click="redirect(5)" class="more_service">更多會員服務</a>
                 </div>
             </div>
             <div class="right">
-                <div class="checkin" @click="ckeckin">
-                    打卡
-                </div>
-                <div class="program" @click="programPop = true">
-                    優惠活動
-                </div>
                 <div @click="toMyfav" class="collect">
                     <img src="@/assets/images/collect.svg" alt="" />
                     <span>我的收藏</span>
@@ -88,20 +84,15 @@
                     </span>
                 </router-link>
                 <div class="subWeb">
-                    <a :href="'https://music.funday.asia' + token" target="_blank">FunMusic</a>
-                    <a :href="'https://tube.funday.asia' + token" target="_blank">FunTube</a>
-                    <a :href="'https://funradio.funday.asia' + token" target="_blank">FunRadio</a>
-                    <a :href="'https://dic.funday.asia/' + token" target="_blank">FunDictionary</a>
-                    <a :href="'https://funday.asia/api/SSO.asp' + token" target="_blank">FunDay</a>
+                    <a href="#" @click="redirect(0)">FunMusic</a>
+                    <a href="#" @click="redirect(1)">FunTube</a>
+                    <a href="#" @click="redirect(2)">FunRadio</a>
+                    <a href="#" @click="redirect(3)">FunDictionary</a>
+                    <a href="#" @click="redirect(4)">FunDay</a>
+                    <a href="#" @click="redirect(5)" class="more_service">更多會員服務</a>
                 </div>
             </div>
             <div class="right">
-                <div class="checkin" @click="ckeckin">
-                    打卡
-                </div>
-                <div class="program" @click="programPop = true">
-                    優惠活動
-                </div>
                 <div @click="toMyfav" class="collect">
                     <img src="@/assets/images/collect.svg" alt="" />
                     <span>我的收藏</span>
@@ -126,8 +117,8 @@
     <div id="program_pop" v-if="programPop">
         <div>
             <i class="fa-solid fa-circle-xmark" @click="programPop = false"></i>
-            <img src="@/assets/images/checkin/detailPC.png" alt="" class="pc">
-            <img src="@/assets/images/checkin/detailMB.png" alt="" class="mb">
+            <img src="@/assets/images/checkin/awardPC.png" alt="" class="pc">
+            <img src="@/assets/images/checkin/awardMB.png" alt="" class="mb">
         </div>
     </div>
 </template>
@@ -149,6 +140,7 @@ const loginStatus = loginStore();
 const user = useUserStore();
 const commonStore = useCommonStore();
 const token = computed(() => `?fdtk=${user.token}`);
+const ADid = ref("");
 
 //router
 const router = useRouter();
@@ -171,6 +163,9 @@ onMounted(() => {
             logoText.classList.remove("none");
         }
     }, 6000);
+    if (sessionStorage.getItem("ADid")) {
+        ADid.value = sessionStorage.getItem("ADid")
+    }
     window.onload = () => {
         window.google.accounts.id.initialize({
             client_id:
@@ -216,6 +211,66 @@ const ckeckin = () => {
         return;
     } else {
         commonStore.checkinPop = true;
+    }
+}
+
+
+const redirect = (number) => {
+    switch (number) {
+        case 0:
+            if (user.token) {
+                window.open(`https://music.funday.asia?fdtk=${user.token}`);
+            } else if (ADid.value !== "") {
+                window.open(`https://music.funday.asia/adLanding.html?ADid=${ADid.value}`)
+            } else {
+                window.open("https://music.funday.asia")
+            }
+            break;
+        case 1:
+            if (user.token) {
+                window.open(`https://tube.funday.asia?fdtk=${user.token}`);
+            } else if (ADid.value !== "") {
+                window.open(`https://tube.funday.asia/adLanding.html?ADid=${ADid.value}`)
+            } else {
+                window.open("https://tube.funday.asia")
+            }
+            break;
+        case 2:
+            if (user.token) {
+                window.open(`https://funradio.funday.asia?fdtk=${user.token}`);
+            } else if (ADid.value !== "") {
+                window.open(`https://funradio.funday.asia/adLanding.html?ADid=${ADid.value}`)
+            } else {
+                window.open("https://funradio.funday.asia")
+            }
+            break;
+        case 3:
+            if (user.token) {
+                window.open(`https://dic.funday.asia?fdtk=${user.token}`);
+            } else if (ADid.value !== "") {
+                window.open(`https://dic.funday.asia?ADid=${ADid.value}`)
+            } else {
+                window.open("https://dic.funday.asia")
+            }
+            break;
+        case 4:
+            if (user.token) {
+                window.open(`https://funday.asia/api/SSO.asp?fdtk=${user.token}`);
+            } else if (ADid.value !== "") {
+                window.open(`https://funday.asia/AD_reflink.asp?ad_id=${ADid.value}`)
+            } else {
+                window.open("https://funday.asia")
+            }
+            break;
+        case 5:
+            if (user.token) {
+                window.open(`https://funday.asia/api/SSOGOLink.asp?fdtk=${user.token}&Path=Subscription`);
+            } else if (ADid.value !== "") {
+                window.open(`https://funday.asia/subscription/2023?ad_id=${ADid.value}`)
+            } else {
+                window.open("https://funday.asia/subscription/2023/")
+            }
+            break;
     }
 }
 </script>

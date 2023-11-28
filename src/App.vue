@@ -47,12 +47,29 @@ const podcast = () => {
 
 
 onMounted(async () => {
+    var ua = navigator.userAgent || navigator.vendor || window.opera;
+    console.log("222")
+    function isFacebookApp() {
+        return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
+    }
+    if (isFacebookApp()) {
+        if (!window.location.href.match('redirect_fb')) {
+            const url = window.location.href
+            // force open in browser ... 
+            window.open("googlechrome://dic.funday.asia");
+            alert("1");
+
+        };
+    };
+
     if (sessionStorage.getItem('mid')) {
         loginWrapper.value = false;
         userStore.mid = sessionStorage.getItem('mid')
         userStore.cid = sessionStorage.getItem('cid')
         userStore.userPic = sessionStorage.getItem('pic')
         userStore.sex = sessionStorage.getItem('sex')
+        userStore.name = sessionStorage.getItem('name')
+        userStore.level = sessionStorage.getItem('level')
         loginStatus.joinGroup(sessionStorage.getItem('mid'))
         user.token = localStorage.getItem("fdtk");
         userStore.isLogin = true;
@@ -84,10 +101,11 @@ onMounted(async () => {
     }
 
 
+
+
 })
 
 const toLogin = () => {
-    loginWrapper.value = false;
     loginStatus.$patch({
         status: true,
     });

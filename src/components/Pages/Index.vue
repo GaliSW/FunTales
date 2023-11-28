@@ -208,7 +208,6 @@
         </section>
     </section>
     <Dictionary v-show="DrWordModal" @close-dic="closeDic"></Dictionary>
-    <Board></Board>
 </template>
 
 <script setup>

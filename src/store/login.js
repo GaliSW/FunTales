@@ -46,10 +46,22 @@ export const loginStore = defineStore({
                         user.cid = res.data.Content.Cindx;
                         user.userPic = res.data.Content.Pic;
                         user.sex = res.data.Content.Sex;
+                        user.name = res.data.Content.Nickname;
+                        user.level = res.data.Content.UserLevel;
                         user.isLogin = true;
                         this.joinGroup(res.data.Content.Mindx);
                         sessionStorage.setItem("mid", res.data.Content.Mindx);
                         sessionStorage.setItem("cid", res.data.Content.Cindx);
+                        sessionStorage.setItem(
+                            "name",
+                            res.data.Content.Nickname
+                        );
+                        sessionStorage.setItem(
+                            "level",
+                            res.data.Content.UserLevel
+                        );
+                        sessionStorage.setItem("sex", res.data.Content.Sex);
+                        sessionStorage.setItem("pic", res.data.Content.Pic);
                         localStorage.setItem("fdtk", token);
                         router.push({
                             path: "/",
@@ -217,12 +229,22 @@ export const loginStore = defineStore({
                         user.cid = res.data.Content.Cindx;
                         user.userPic = res.data.Content.Pic;
                         user.sex = res.data.Content.Sex;
+                        user.name = res.data.Content.Nickname;
+                        user.level = res.data.Content.UserLevel;
                         user.isLogin = true;
                         user.token = res.data.Content.Token;
                         sessionStorage.setItem("mid", res.data.Content.Mindx);
                         sessionStorage.setItem("cid", res.data.Content.Cindx);
                         sessionStorage.setItem("pic", res.data.Content.Pic);
                         sessionStorage.setItem("sex", res.data.Content.Sex);
+                        sessionStorage.setItem(
+                            "name",
+                            res.data.Content.Nickname
+                        );
+                        sessionStorage.setItem(
+                            "level",
+                            res.data.Content.UserLevel
+                        );
                         localStorage.setItem("fdtk", res.data.Content.Token);
                         this.joinGroup(res.data.Content.Mindx);
                     } else {
@@ -308,10 +330,23 @@ export const loginStore = defineStore({
                                 "cid",
                                 res.data.Content.Cindx
                             );
+                            user.userPic = res.data.Content.Pic;
                             sessionStorage.removeItem("id");
                             sessionStorage.removeItem("email");
+                            sessionStorage.setItem(
+                                "name",
+                                res.data.Content.Nickname
+                            );
+                            sessionStorage.setItem(
+                                "level",
+                                res.data.Content.UserLevel
+                            );
+                            sessionStorage.setItem("sex", res.data.Content.Sex);
+                            sessionStorage.setItem("pic", res.data.Content.Pic);
                             user.mid = res.data.Content.Mindx;
                             user.cid = res.data.Content.Cindx;
+                            user.name = res.data.Content.Nickname;
+                            user.level = res.data.Content.UserLevel;
                             localStorage.setItem(
                                 "fdtk",
                                 res.data.Content.Token
@@ -448,10 +483,29 @@ export const loginStore = defineStore({
                                         "cid",
                                         res.data.Content.Cindx
                                     );
+                                    sessionStorage.setItem(
+                                        "name",
+                                        res.data.Content.Nickname
+                                    );
+                                    sessionStorage.setItem(
+                                        "level",
+                                        res.data.Content.UserLevel
+                                    );
+                                    sessionStorage.setItem(
+                                        "sex",
+                                        res.data.Content.Sex
+                                    );
+                                    sessionStorage.setItem(
+                                        "pic",
+                                        res.data.Content.Pic
+                                    );
                                     sessionStorage.removeItem("id");
                                     sessionStorage.removeItem("email");
                                     user.mid = res.data.Content.Mindx;
+                                    user.name = res.data.Content.Nickname;
                                     user.cid = res.data.Content.Cindx;
+                                    user.level = res.data.Content.UserLevel;
+                                    user.userPic = res.data.Content.Pic;
                                     localStorage.setItem(
                                         "fdtk",
                                         res.data.Content.Token

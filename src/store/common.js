@@ -79,6 +79,7 @@ export const useCommonStore = defineStore("CommonStore", () => {
                 talesContent.value = res.data.data;
                 talesOthers.value = res.data.others;
                 getOthersTales(id);
+                getPostgresId();
             });
     };
 
@@ -309,6 +310,37 @@ export const useCommonStore = defineStore("CommonStore", () => {
     //廣告點擊記數
     const fnAdsCount = (id) => {
         axios.get(`https://funday.asia/api/AdClick.asp?ad_id=${id}`);
+    };
+
+    const getPostgresId = () => {
+        axios
+            .get(
+                `https://socialmedia-api.funday.asia/api/v1/Reports/UserId?member_id=${user.mid}`
+            )
+            .then(async (res) => {
+                const postgresId = res.data.content;
+                postLogEvent(postgresId);
+            });
+    };
+    const postLogEvent = (id) => {
+        axios
+            .post("https://socialmedia-api.funday.asia/api/v1/Logs/AddLogs", {
+                userId: id,
+                createdDate: new Date(),
+                action: "在童話館",
+                details: `閱讀-${talesInfo.value.eTitle}`,
+                levels: sessionStorage.getItem("level"),
+                member_id: sessionStorage.getItem("mid"),
+                nickName: sessionStorage.getItem("name"),
+                sex: sessionStorage.getItem("sex"),
+                thumbnail:
+                    sessionStorage.getItem("pic") === "null"
+                        ? ""
+                        : user.userPic,
+            })
+            .then(async (res) => {
+                console.log(res);
+            });
     };
 
     return {

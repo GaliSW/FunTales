@@ -50,6 +50,19 @@ header {
             .subWeb>a:hover {
                 color: rgba(255, 255, 255, 1);
             }
+
+            .subWeb .more_service{
+                text-align: center;
+                border: 1px solid white;
+                border-style: solid;
+                font-size: 14px;
+                padding: 6px 16px;
+                border-radius: 20px;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                -ms-border-radius: 20px;
+                -o-border-radius: 20px;
+            }
     
             .rotateX img,
             .rotateX div {

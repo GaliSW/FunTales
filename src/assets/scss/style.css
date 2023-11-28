@@ -97,6 +97,18 @@ header .modal-1 .left .subWeb > a {
 header .modal-1 .left .subWeb > a:hover {
   color: rgb(255, 255, 255);
 }
+header .modal-1 .left .subWeb .more_service {
+  text-align: center;
+  border: 1px solid white;
+  border-style: solid;
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
 header .modal-1 .left .rotateX img,
 header .modal-1 .left .rotateX div {
   position: relative;
@@ -1904,8 +1916,7 @@ header .modal-3 .back, header .modal-3 .title {
 }
 
 .DrWord .Dr_content .inner ul {
-  -webkit-padding-start: 10px;
-          padding-inline-start: 10px;
+  padding-inline-start: 10px;
 }
 
 .DrWord .Dr_content .inner li {

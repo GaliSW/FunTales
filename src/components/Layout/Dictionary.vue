@@ -62,13 +62,10 @@ const getDrWordModal = (e) => {
             `https://funday.asia/NewMylessonmobile/api/vocabulary?customer_id=${this.customer_id}&member_id=${this.member_id}&Enkeyword=${this.DrWord}&Chkeyword=`
         )
         .then((res) => {
-            // console.log(res.data.En_word);
             if (res.data.En_word == "") {
-                // console.log("n");
                 $(".collect .icon .fas.fa-heart").hide();
                 $(".collect .icon .far.fa-heart").show();
             } else {
-                // console.log("y");
                 $(".collect .icon .fas.fa-heart").show();
                 $(".collect .icon .far.fa-heart").hide();
             }

@@ -441,4 +441,7 @@ const closeDic = () => {
         document.querySelector(".select").classList.remove("select");
     }
 }
+
+
+
 </script>
